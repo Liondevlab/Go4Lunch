@@ -28,16 +28,17 @@ public class ProfileActivity extends BaseActivity<ActivityProfileBinding> {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupListeners();
-		updateUIWithUserData();		
+		//updateUIWithUserData();
 	}
 
+	//TODO
 	private void setupListeners(){
-		binding.updateButton.setOnClickListener(view -> { });
-		binding.signOutButton.setOnClickListener(view -> { });
-		binding.deleteButton.setOnClickListener(view -> { });
+		//binding.updateButton.setOnClickListener(view -> { });
+		//binding.signOutButton.setOnClickListener(view -> { });
+		//binding.deleteButton.setOnClickListener(view -> { });
 	}
 
-	private void updateUIWithUserData() {
+/*	private void updateUIWithUserData() {
 		if (userManager.isCurrentUserLogged()) {
 			FirebaseUser user = userManager.getCurrentUser();
 			if(user.getPhotoUrl() != null) {
@@ -52,7 +53,7 @@ public class ProfileActivity extends BaseActivity<ActivityProfileBinding> {
 				.load(profilePictureUrl)
 				.apply(RequestOptions.circleCropTransform())
 				.into(binding.profileImageView);
-	}
+	}*/
 
 	private void setTextUserData(FirebaseUser user) {
 

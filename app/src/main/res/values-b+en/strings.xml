@@ -7,4 +7,6 @@
     <string name="error_unknown_error">Warning! Unknown error...</string>
     <string name="search_activity_main">Search Activity</string>
     <string name="toolbar_profile_activity">Profile settings activity</string>
+    <string name="button_login_text_logged">Go4Lunch!!!</string>
+    <string name="button_login_text_not_logged">Connexion</string>
 </resources>

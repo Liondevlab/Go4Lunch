@@ -23,9 +23,10 @@ public class SearchActivity extends BaseActivity<ActivityProfileBinding> {
 		setupListeners();
 	}
 
+	//TODO
 	private void setupListeners(){
-		binding.mapButton.setOnClickListener(view -> { });
-		binding.restaurantListButton.setOnClickListener(view -> { });
-		binding.userListButton.setOnClickListener(view -> { });
+		//binding.mapButton.setOnClickListener(view -> { });
+		//binding.restaurantListButton.setOnClickListener(view -> { });
+		//binding.userListButton.setOnClickListener(view -> { });
 	}
 }

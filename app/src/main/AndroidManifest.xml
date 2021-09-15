@@ -21,13 +21,14 @@
         <!-- SEARCH ACTIVITY -->
         <activity android:name=".view.ui.SearchActivity"
             android:label="@string/search_activity_main"
-            android:parentActivityName=".view.ui.MainActivity" />
-
+            android:parentActivityName=".view.ui.MainActivity"
+            android:theme="@style/AppTheme.NoTitle"/>
+        
         <!-- PROFILE ACTIVITY -->
         <activity android:name=".view.ui.ProfileActivity"
             android:label="@string/toolbar_profile_activity"
-            android:parentActivityName=".view.ui.SearchActivity" />
-
+            android:parentActivityName=".view.ui.SearchActivity"
+            android:theme="@style/AppTheme.NoTitle"/>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_application_id"/>
 
     </application>
