@@ -1,4 +1,10 @@
 <resources>
     <string name="app_subtitle">Trouvez un bon réstaurant et invitez vos collègues à déjeuner!</string>
-
+    <string name="login">Connexion</string>
+    <string name="connection_succeed">Vous êtes connecté!</string>
+    <string name="error_authentication_canceled">Attention! Authentification annulée</string>
+    <string name="error_no_internet">Attention! Pas de connexion internet...</string>
+    <string name="error_unknown_error">Attention! Erreur inconnue...</string>
+    <string name="search_activity_main">Search Activity</string>
+    <string name="toolbar_profile_activity">Profile settings activity</string>
 </resources>

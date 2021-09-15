@@ -9,13 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Go4Lunch">
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.ui.MainActivity"
+            android:theme="@style/AppTheme.NoTitle"> <!-- DISABLE TOOLBAR IN MAIN ACTIVITY-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- SEARCH ACTIVITY -->
+        <activity android:name=".view.ui.SearchActivity"
+            android:label="@string/search_activity_main"
+            android:parentActivityName=".view.ui.MainActivity" />
+
+        <!-- PROFILE ACTIVITY -->
+        <activity android:name=".view.ui.ProfileActivity"
+            android:label="@string/toolbar_profile_activity"
+            android:parentActivityName=".view.ui.SearchActivity" />
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_application_id"/>
 
