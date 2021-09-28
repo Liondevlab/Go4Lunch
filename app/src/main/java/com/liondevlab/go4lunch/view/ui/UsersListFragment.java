@@ -15,11 +15,11 @@ import com.liondevlab.go4lunch.R;
  * Go4Lunch
  * Created by LioNDeVLaB on 15/09/2021
  */
-public class MapFragment extends Fragment {
+public class UsersListFragment extends Fragment {
 
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_map, container, false);
+		return inflater.inflate(R.layout.fragment_users_list, container, false);
 	}
 }
