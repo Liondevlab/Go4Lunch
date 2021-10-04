@@ -1,31 +1,11 @@
 <resources>
-    <string name="app_name" translatable="false">Go4Lunch</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="facebook_application_id" translatable="false">866904250601022</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb866904250601022</string>
-    <string name="app_subtitle">Find a nice restaurant and invite your co-workers for lunch!</string>
-    <string name="login">Login</string>
-    <string name="connection_succeed">You are connected!</string>
-    <string name="error_authentication_canceled">Warning! Authentication canceled</string>
-    <string name="error_no_internet">Warning! No internet connection…</string>
-    <string name="error_unknown_error">Warning! Unknown error…</string>
-    <string name="search_activity_main">Search Activity</string>
-    <string name="toolbar_profile_activity">Profile settings activity</string>
-    <string name="button_login_text_logged">Go4Lunch!!!</string>
-    <string name="button_login_text_not_logged">Connexion</string>
-    <string name="nav_map">Map view</string>
-    <string name="restaurant_list">List view</string>
-    <string name="workmates_list">Workmates</string>
-    <string name="menu_button">Menu Button</string>
-    <string name="profile">Profile</string>
-    <string name="search_bar">Search Bar</string>
-    <string name="item_workmate_infos">%1$s - \" is eating \" - %2$s - \" (\" - %3$s - \")\"</string>
-    <string name="workmate_picture">User picture</string>
-    <string name="user_picture">User picture</string>
-    <string name="your_lunch">YOUR LUNCH</string>
-    <string name="settings">SETTINGS</string>
-    <string name="logout">LOGOUT</string>
-
+    <string name="app_name">Go4Lunch</string>
+    <string name="title_activity_search_lunch">SearchLunchActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_restaurant_map">Restaurant map</string>
+    <string name="title_restaurant_list">Restaurant list</string>
+    <string name="title_workmate_list">Workmate list</string>
+    <string name="title_chat">Chat</string>
 </resources>
