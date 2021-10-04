@@ -17,7 +17,7 @@ import com.liondevlab.go4lunch.viewmodel.WorkmateListViewModel;
 
 public class WorkmateListFragment extends Fragment {
 
-	private WorkmateListViewModel mViewModel;
+	private WorkmateListViewModel mWorkmateListViewModel;
 
 	public static WorkmateListFragment newInstance() {
 		return new WorkmateListFragment();
@@ -32,7 +32,7 @@ public class WorkmateListFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mViewModel = new ViewModelProvider(this).get(WorkmateListViewModel.class);
+		mWorkmateListViewModel = new ViewModelProvider(this).get(WorkmateListViewModel.class);
 		// TODO: Use the ViewModel
 	}
 

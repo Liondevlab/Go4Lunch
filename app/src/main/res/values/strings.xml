@@ -1,11 +1,8 @@
 <resources>
-    <string name="app_name">Go4Lunch</string>
-    <string name="title_activity_search_lunch">SearchLunchActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_restaurant_map">Restaurant map</string>
-    <string name="title_restaurant_list">Restaurant list</string>
-    <string name="title_workmate_list">Workmate list</string>
-    <string name="title_chat">Chat</string>
+    <string name="app_name" translatable="false">Go4Lunch</string>
+    <string name="title_activity_search_lunch" translatable="false">SearchLunchActivity</string>
+    <string name="title_restaurant_map" translatable="false">Restaurant map</string>
+    <string name="title_restaurant_list" translatable="false">Restaurant list</string>
+    <string name="title_workmate_list" translatable="false">Workmate list</string>
+    <string name="title_chat" translatable="false">Chat</string>
 </resources>

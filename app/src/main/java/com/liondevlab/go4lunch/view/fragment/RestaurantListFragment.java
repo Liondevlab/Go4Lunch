@@ -17,7 +17,7 @@ import com.liondevlab.go4lunch.viewmodel.RestaurantListViewModel;
 
 public class RestaurantListFragment extends Fragment {
 
-	private RestaurantListViewModel mViewModel;
+	private RestaurantListViewModel mRestaurantListViewModel;
 
 	public static RestaurantListFragment newInstance() {
 		return new RestaurantListFragment();
@@ -32,7 +32,7 @@ public class RestaurantListFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mViewModel = new ViewModelProvider(this).get(RestaurantListViewModel.class);
+		mRestaurantListViewModel = new ViewModelProvider(this).get(RestaurantListViewModel.class);
 		// TODO: Use the ViewModel
 	}
 

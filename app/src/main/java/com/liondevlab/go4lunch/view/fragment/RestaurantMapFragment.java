@@ -17,7 +17,7 @@ import com.liondevlab.go4lunch.viewmodel.RestaurantMapViewModel;
 
 public class RestaurantMapFragment extends Fragment {
 
-	private RestaurantMapViewModel mViewModel;
+	private RestaurantMapViewModel mRestaurantMapViewModel;
 
 	public static RestaurantMapFragment newInstance() {
 		return new RestaurantMapFragment();
@@ -32,7 +32,7 @@ public class RestaurantMapFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mViewModel = new ViewModelProvider(this).get(RestaurantMapViewModel.class);
+		mRestaurantMapViewModel = new ViewModelProvider(this).get(RestaurantMapViewModel.class);
 		// TODO: Use the ViewModel
 	}
 

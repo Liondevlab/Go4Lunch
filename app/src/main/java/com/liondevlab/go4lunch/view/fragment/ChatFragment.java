@@ -17,7 +17,7 @@ import com.liondevlab.go4lunch.viewmodel.ChatViewModel;
 
 public class ChatFragment extends Fragment {
 
-	private ChatViewModel mViewModel;
+	private ChatViewModel mChatViewModel;
 
 	public static ChatFragment newInstance() {
 		return new ChatFragment();
@@ -32,7 +32,7 @@ public class ChatFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+		mChatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
 		// TODO: Use the ViewModel
 	}
 
