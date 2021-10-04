@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.liondevlab.go4lunch.R;
-import com.liondevlab.go4lunch.viewmodel.ChatViewModel;
+import com.liondevlab.go4lunch.viewmodel.ChatFragmentViewModel;
 
 public class ChatFragment extends Fragment {
 
-	private ChatViewModel mChatViewModel;
+	private ChatFragmentViewModel mChatFragmentViewModel;
 
 	public static ChatFragment newInstance() {
 		return new ChatFragment();
@@ -32,7 +32,7 @@ public class ChatFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mChatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+		mChatFragmentViewModel = new ViewModelProvider(this).get(ChatFragmentViewModel.class);
 		// TODO: Use the ViewModel
 	}
 

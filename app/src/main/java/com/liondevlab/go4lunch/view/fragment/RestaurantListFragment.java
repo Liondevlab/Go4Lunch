@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.liondevlab.go4lunch.R;
-import com.liondevlab.go4lunch.viewmodel.RestaurantListViewModel;
+import com.liondevlab.go4lunch.viewmodel.RestaurantListFragmentViewModel;
 
 public class RestaurantListFragment extends Fragment {
 
-	private RestaurantListViewModel mRestaurantListViewModel;
+	private RestaurantListFragmentViewModel mRestaurantListFragmentViewModel;
 
 	public static RestaurantListFragment newInstance() {
 		return new RestaurantListFragment();
@@ -32,7 +32,7 @@ public class RestaurantListFragment extends Fragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mRestaurantListViewModel = new ViewModelProvider(this).get(RestaurantListViewModel.class);
+		mRestaurantListFragmentViewModel = new ViewModelProvider(this).get(RestaurantListFragmentViewModel.class);
 		// TODO: Use the ViewModel
 	}
 

@@ -2,6 +2,6 @@ package com.liondevlab.go4lunch.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
-public class RestaurantMapViewModel extends ViewModel {
+public class RestaurantMapFragmentViewModel extends ViewModel {
 	// TODO: Implement the ViewModel
 }
