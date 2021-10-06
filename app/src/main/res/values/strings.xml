@@ -34,4 +34,8 @@
     <string name="error_authentication_canceled">Warning! Authentication canceled</string>
     <string name="connection_succeed">You are connected!</string>
     <string name="login">Login</string>
+    <string name="map_fragment">MAP FRAGMENT</string>
+    <string name="restaurant_list_fragment">RESTAURANT LIST FRAGMENT</string>
+    <string name="chat_fragment">CHAT FRAGMENT</string>
+    <string name="workmates_list_fragment">WORKMATES LIST FRAGMENT</string>
 </resources>

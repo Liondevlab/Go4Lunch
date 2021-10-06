@@ -1,10 +1,14 @@
-package com.liondevlab.go4lunch.viewmodel;
+package com.liondevlab.go4lunch.view.manager;
 
 import android.content.Context;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.liondevlab.go4lunch.model.Workmate;
+import com.liondevlab.go4lunch.view.repository.UserRepository;
+
+import java.util.Objects;
+
 /**
  * Go4Lunch
  * Created by LioNDeVLaB on 15/09/2021
@@ -49,7 +53,7 @@ public class UserManager {
 
 	public Task<Workmate> getUserData() {
 		// Get the user from Firestore and cast it to a model object
-		return userRepository.getUserData().continueWith(task -> task.getResult().toObject(Workmate.class));
+		return Objects.requireNonNull(userRepository.getUserData()).continueWith(task -> task.getResult().toObject(Workmate.class));
 	}
 
 	public Task<Void> updateUsername(String username) {

@@ -2,7 +2,6 @@ package com.liondevlab.go4lunch.view.activity;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.Nullable;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +12,11 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.liondevlab.go4lunch.R;
 import com.liondevlab.go4lunch.databinding.ActivityMainBinding;
 import com.liondevlab.go4lunch.viewmodel.MainActivityViewModel;
-import com.liondevlab.go4lunch.viewmodel.UserManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +24,8 @@ import java.util.List;
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
 	private MainActivityViewModel mMainActivityViewModel;
-	private UserManager userManager = UserManager.getInstance();
+	private FirebaseAuth mFirebaseAuth;
+	private FirebaseUser mCurrentUser;
 
 	@Override
 	ActivityMainBinding getViewBinding() {
@@ -34,8 +35,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mFirebaseAuth = FirebaseAuth.getInstance();
 		setupListeners();
 	}
+
 
 	@Override
 	protected void onResume() {
@@ -55,8 +58,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
 	private void setupListeners() {
 		// Login Button
+		mCurrentUser = mFirebaseAuth.getCurrentUser();
 		binding.loginButton.setOnClickListener(view -> {
-			if(userManager.isCurrentUserLogged()) {
+			if(mCurrentUser != null) {
 				startSearchActivity();
 			} else{
 				startSigningActivity();
@@ -89,7 +93,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 		IdpResponse response = result.getIdpResponse();
 		// SUCCESS
 		if (result.getResultCode() == RESULT_OK) {
-			userManager.createUser();
+			//userManager.createUser();
 			showSnackBar(getString(R.string.connection_succeed));
 		} else {
 			// ERRORS
@@ -112,6 +116,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
 	//Update Login Button when activity is resuming
 	private void updateLoginButton(){
-		binding.loginButton.setText(userManager.isCurrentUserLogged() ? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
+		mCurrentUser = mFirebaseAuth.getCurrentUser();
+		if (mCurrentUser != null) {
+			binding.loginButton.setText(getString(R.string.button_login_text_logged));
+		} else {
+			binding.loginButton.setText(getString(R.string.button_login_text_not_logged));
+		}
 	}
 }

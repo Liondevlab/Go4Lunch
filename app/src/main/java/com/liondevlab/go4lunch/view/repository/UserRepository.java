@@ -1,4 +1,4 @@
-package com.liondevlab.go4lunch.viewmodel;
+package com.liondevlab.go4lunch.view.repository;
 
 import android.content.Context;
 

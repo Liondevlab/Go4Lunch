@@ -23,4 +23,8 @@
     <string name="logout">LOGOUT</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="map_fragment">MAP FRAGMENT</string>
+    <string name="restaurant_list_fragment">RESTAURANT LIST FRAGMENT</string>
+    <string name="chat_fragment">CHAT FRAGMENT</string>
+    <string name="workmates_list_fragment">WORKMATES LIST FRAGMENT</string>
 </resources>
