@@ -10,14 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Go4Lunch" >
         <activity
-            android:name=".view.activity.SearchForLunchActivity"
-            android:exported="true" />
+            android:name=".view.activity.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity
             android:name=".view.activity.RestaurantDetailsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/AppTheme.NoTitle"/>
         <activity
-            android:name=".view.activity.MainActivity"
-            android:exported="true" >
+            android:name=".view.activity.SignInActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

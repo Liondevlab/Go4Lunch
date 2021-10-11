@@ -1,17 +1,25 @@
 package com.liondevlab.go4lunch.view.repository;
 
 import android.content.Context;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.liondevlab.go4lunch.model.Workmate;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.liondevlab.go4lunch.model.User;
+
+import java.util.ArrayList;
 
 /**
  * Go4Lunch
@@ -23,6 +31,7 @@ public final class UserRepository {
 	private static final String COLLECTION_NAME = "users";
 	private static final String USERNAME_FIELD = "username";
 	private static final String IS_RESTAURANT_CHOSEN_FIELD = "isRestaurantChosen";
+	private static final String TAG = "UserRepository";
 
 	private UserRepository() { }
 
@@ -50,6 +59,15 @@ public final class UserRepository {
 		return (user != null)? user.getUid() : null;
 	}
 
+	public void getAllUsers() {
+		FirebaseFirestore.getInstance().collection(COLLECTION_NAME).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+			@Override
+			public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+				//TODO
+			}
+		})
+	}
+
 	// Get the Collection Reference
 	private CollectionReference getUsersCollection() {
 		return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
@@ -63,7 +81,7 @@ public final class UserRepository {
 			String username = user.getDisplayName();
 			String uid = user.getUid();
 
-			Workmate userToCreate = new Workmate(uid, username, urlPicture);
+			User userToCreate = new User(uid, username, urlPicture);
 
 			Task<DocumentSnapshot> userData = getUserData();
 			// If the user already exist in Firestore, we get his data (isRestaurantChosen)

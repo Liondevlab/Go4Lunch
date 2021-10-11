@@ -4,9 +4,10 @@ import android.content.Context;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.liondevlab.go4lunch.model.Workmate;
+import com.liondevlab.go4lunch.model.User;
 import com.liondevlab.go4lunch.view.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -16,10 +17,10 @@ import java.util.Objects;
 public class UserManager {
 
 	private static volatile UserManager instance;
-	private UserRepository userRepository;
+	private UserRepository mUserRepository;
 
-	private UserManager() {
-		userRepository = UserRepository.getInstance();
+	public UserManager() {
+		mUserRepository = UserRepository.getInstance();
 	}
 
 	public static UserManager getInstance() {
@@ -36,7 +37,11 @@ public class UserManager {
 	}
 
 	public FirebaseUser getCurrentUser() {
-		return userRepository.getCurrentUser();
+		return mUserRepository.getCurrentUser();
+	}
+
+	public void getAllUsers() {
+		mUserRepository.getAllUsers();
 	}
 
 	public Boolean isCurrentUserLogged() {
@@ -44,31 +49,31 @@ public class UserManager {
 	}
 
 	public Task<Void> signOut(Context context){
-		return userRepository.signOut(context);
+		return mUserRepository.signOut(context);
 	}
 
 	public void createUser() {
-		userRepository.createUser();
+		mUserRepository.createUser();
 	}
 
-	public Task<Workmate> getUserData() {
+	public Task<User> getUserData() {
 		// Get the user from Firestore and cast it to a model object
-		return Objects.requireNonNull(userRepository.getUserData()).continueWith(task -> task.getResult().toObject(Workmate.class));
+		return Objects.requireNonNull(mUserRepository.getUserData()).continueWith(task -> task.getResult().toObject(User.class));
 	}
 
 	public Task<Void> updateUsername(String username) {
-		return userRepository.updateUsername(username);
+		return mUserRepository.updateUsername(username);
 	}
 
 	public void updateIsRestaurantChosen(boolean isRestaurantChosen) {
-		userRepository.updateIsRestaurantChosen(isRestaurantChosen);
+		mUserRepository.updateIsRestaurantChosen(isRestaurantChosen);
 	}
 
 	public Task<Void> deleteUser(Context context) {
 		// Delete the user account from the Auth
-		return userRepository.deleteUser(context).addOnCompleteListener(Task -> {
+		return mUserRepository.deleteUser(context).addOnCompleteListener(Task -> {
 			// Once done, delete the user data from Firestore
-			userRepository.deleteUserFromFirestore();
+			mUserRepository.deleteUserFromFirestore();
 		});
 	}
 }

@@ -3,17 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/activity_main.xml" value="0.17395833333333333" />
-        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/activity_search_for_lunch.xml" value="0.3218390804597701" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/drawable/ic_baseline_account_circle_48.xml" value="0.3640625" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.3640625" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/drawable/ic_baseline_restaurant_menu_24.xml" value="0.3640625" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.3640625" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/action_bar_layout.xml" value="0.184375" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/activity_main_profile_header.xml" value="0.3229166666666667" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/activity_profile_header.xml" value="0.33707865168539325" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/activity_search_for_lunch.xml" value="0.2313915857605178" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/activity_search_for_lunch_profile_header.xml" value="0.34375" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/activity_search_lunch.xml" value="0.25" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/fragment_chat.xml" value="0.34375" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/fragment_restaurant_list.xml" value="0.34375" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/fragment_restaurant_map.xml" value="0.34375" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/fragment_workmate_list.xml" value="0.34375" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/item_chat_recycler_view.xml" value="0.3229166666666667" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/item_joining_workmate_recycler_view.xml" value="0.34375" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/item_restaurant_list_recycler_view.xml" value="0.34375" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/layout/item_workmate_list_recycler_view.xml" value="0.34375" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/menu/activity_profile_menu.xml" value="0.33707865168539325" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/menu/activity_search_for_lunch_profile_menu.xml" value="0.34375" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17395833333333333" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/menu/main_toolbar.xml" value="0.3229166666666667" />
+        <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/menu/search_for_lunch_action_bar.xml" value="0.184375" />
       </map>
     </option>
   </component>

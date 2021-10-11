@@ -27,4 +27,10 @@
     <string name="restaurant_list_fragment">RESTAURANT LIST FRAGMENT</string>
     <string name="chat_fragment">CHAT FRAGMENT</string>
     <string name="workmates_list_fragment">WORKMATES LIST FRAGMENT</string>
+    <string name="search">Search</string>
+    <string name="parameters">Parameters</string>
+    <string name="info_no_email_found">No email found</string>
+    <string name="info_no_username_found">No username found</string>
+    <string name="item_workmate_avatar_description">Workmate avatar</string>
+    <string name="item_workmate_is_joining">%1$s y sera!</string>
 </resources>

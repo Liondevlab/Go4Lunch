@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
  * Go4Lunch
  * Created by LioNDeVLaB on 15/09/2021
  */
-public class Workmate {
+public class User {
 
 	private String userId;
 	private String username;
@@ -16,13 +16,13 @@ public class Workmate {
 	private Restaurant mRestaurant;
 	private boolean isRestaurantChosen = false;
 
-	public Workmate() { }
+	public User() { }
 
-	public Workmate(String userId, String username, @Nullable String urlPicture) {
+	public User(String userId, String username, @Nullable String urlPicture) {
 		this.userId = userId;
 		this.username = username;
 		this.urlPicture = urlPicture;
-		this.mRestaurant = mRestaurant;
+		// TODO this.mRestaurant = mRestaurant;
 		this.isRestaurantChosen = false;
 	}
 

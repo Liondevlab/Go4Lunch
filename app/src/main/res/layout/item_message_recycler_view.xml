@@ -7,25 +7,25 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/item_joining_workmates_list_avatar"
+        android:id="@+id/item_message_chat_avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/item_workmate_avatar_description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/item_joining_workmates_list_text"
-        app:layout_constraintBottom_toBottomOf="@id/item_joining_workmates_list_text"
+        app:layout_constraintEnd_toStartOf="@id/item_message_chat_text"
+        app:layout_constraintBottom_toBottomOf="@id/item_message_chat_text"
         app:srcCompat="@drawable/ic_baseline_account_circle_48"/>
 
     <TextView
-        android:id="@+id/item_joining_workmates_list_text"
+        android:id="@+id/item_message_chat_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center_vertical"
-        android:text="@string/item_workmate_is_joining"
-        app:layout_constraintTop_toTopOf="@id/item_joining_workmates_list_avatar"
-        app:layout_constraintBottom_toBottomOf="@id/item_joining_workmates_list_avatar"
-        app:layout_constraintStart_toEndOf="@id/item_joining_workmates_list_avatar"/>
+        android:text="@string/item_message_text"
+        app:layout_constraintTop_toTopOf="@id/item_message_chat_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/item_message_chat_avatar"
+        app:layout_constraintStart_toEndOf="@id/item_message_chat_avatar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
