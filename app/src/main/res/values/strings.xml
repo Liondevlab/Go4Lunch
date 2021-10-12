@@ -18,7 +18,7 @@
     <string name="your_lunch">YOUR LUNCH</string>
     <string name="user_picture">User picture</string>
     <string name="workmate_picture">Workmate picture</string>
-    <string name="item_workmate_infos">%1$s - \" is eating \" - %2$s - \" (\" - %3$s - \")\"</string>
+    <string name="item_workmate_infos">%1$s is eating %2$s ( %3$s )</string>
     <string name="profile">Profile</string>
     <string name="search_bar">Search Bar</string>
     <string name="menu_button">Menu Button</string>

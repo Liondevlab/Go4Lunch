@@ -35,7 +35,7 @@ public class WorkmatesListAdapter  extends RecyclerView.Adapter<WorkmatesListAda
 	@NonNull
 	@Override
 	public WorkmatesListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType){
-		View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_workmate_list_recycler_view, viewGroup, false);
+		View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_workmate_list, viewGroup, false);
 		return new WorkmatesListViewHolder(view);
 	}
 

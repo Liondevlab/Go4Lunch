@@ -40,8 +40,8 @@ public class UserManager {
 		return mUserRepository.getCurrentUser();
 	}
 
-	public void getAllUsers() {
-		mUserRepository.getAllUsers();
+	public ArrayList<User> getAllUsers() {
+		return mUserRepository.getAllUsers();
 	}
 
 	public Boolean isCurrentUserLogged() {

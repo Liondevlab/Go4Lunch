@@ -42,7 +42,7 @@ public class WorkmateListFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		mWorkmateListViewModel = new ViewModelProvider(this).get(WorkmateListViewModel.class);
 		// TODO: Use the ViewModel
-		mUserManager.getAllUsers();
+		mWorkmates = mUserManager.getAllUsers();
 	}
 
 	@Override

@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	// 3 - Configure NavigationView
 	private void configureNavigationView(){
-		this.mNavigationView = (NavigationView) findViewById(R.id.activity_search_for_lunch_nav_view);
+		this.mNavigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
 		mNavigationView.setNavigationItemSelectedListener(this);
 	}
 
@@ -125,9 +125,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	}
 
 	private void setProfilePicture(Uri photoUrl) {
-		mNavigationView = findViewById(R.id.activity_search_for_lunch_nav_view);
+		mNavigationView = findViewById(R.id.activity_main_nav_view);
 		View header = mNavigationView.getHeaderView(0);
-		ImageView profileImageView = header.findViewById(R.id.profile_Image_View);
+		ImageView profileImageView = header.findViewById(R.id.profile_image_view);
 		if (photoUrl != null) {
 			Glide.with(this).load(photoUrl).apply(RequestOptions.circleCropTransform()).into(profileImageView);
 		} else {
@@ -136,10 +136,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	}
 
 	private void setTextUserData(FirebaseUser user) {
-		mNavigationView = findViewById(R.id.activity_search_for_lunch_nav_view);
+		mNavigationView = findViewById(R.id.activity_main_nav_view);
 		View header = mNavigationView.getHeaderView(0);
-		TextView emailTextView = header.findViewById(R.id.user_Mail);
-		TextView usernameTextView = header.findViewById(R.id.user_Name);
+		TextView emailTextView = header.findViewById(R.id.profile_user_mail);
+		TextView usernameTextView = header.findViewById(R.id.profile_username);
 		String email = TextUtils.isEmpty(user.getEmail()) ? getString(R.string.info_no_email_found) : user.getEmail();
 		String username = TextUtils.isEmpty(user.getDisplayName()) ? getString(R.string.info_no_username_found) : user.getDisplayName();
 

@@ -1,13 +1,17 @@
 package com.liondevlab.go4lunch.view.repository;
 
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,11 +19,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.liondevlab.go4lunch.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Go4Lunch
@@ -32,6 +36,7 @@ public final class UserRepository {
 	private static final String USERNAME_FIELD = "username";
 	private static final String IS_RESTAURANT_CHOSEN_FIELD = "isRestaurantChosen";
 	private static final String TAG = "UserRepository";
+	private ArrayList<User> mUserList;
 
 	private UserRepository() { }
 
@@ -59,13 +64,26 @@ public final class UserRepository {
 		return (user != null)? user.getUid() : null;
 	}
 
-	public void getAllUsers() {
-		FirebaseFirestore.getInstance().collection(COLLECTION_NAME).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+	public ArrayList<User> getAllUsers() {
+		getUsersCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
 			@Override
 			public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-				//TODO
+				if (queryDocumentSnapshots.isEmpty()) {
+					Log.d(TAG, "onSuccess: LIST EMPTY");
+				} else {
+					List<User> users = queryDocumentSnapshots.toObjects(User.class);
+					mUserList.addAll(users);
+					Log.d(TAG, "onSuccess: " + mUserList);
+				}
 			}
-		})
+		}).addOnFailureListener(new OnFailureListener() {
+			@SuppressLint("RestrictedApi")
+			@Override
+			public void onFailure(@NonNull Exception e) {
+				Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+			}
+		});
+		return mUserList;
 	}
 
 	// Get the Collection Reference
