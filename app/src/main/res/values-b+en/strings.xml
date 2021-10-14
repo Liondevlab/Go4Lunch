@@ -33,4 +33,7 @@
     <string name="info_no_username_found">No username found</string>
     <string name="item_workmate_avatar_description">Workmate avatar</string>
     <string name="item_workmate_is_joining">%1$s Is joining!</string>
+    <string name="text_view_chat_error">There is no message yet...</string>
+    <string name="text_input_chat_fragment">Type your message here</string>
+    <string name="button_send_message_chat_fragment">SEND</string>
 </resources>

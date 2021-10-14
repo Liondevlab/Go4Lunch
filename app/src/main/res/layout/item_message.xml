@@ -1,31 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_mentor_chat_item_root_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin">
 
-    <ImageView
-        android:id="@+id/item_message_chat_avatar"
+    <!-- PROFILE CONTAINER -->
+    <LinearLayout
+        android:id="@+id/item_message_profile_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/item_workmate_avatar_description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/item_message_chat_text"
-        app:layout_constraintBottom_toBottomOf="@id/item_message_chat_text"
-        app:srcCompat="@drawable/ic_baseline_account_circle_48"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/default_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/item_message_chat_text"
-        android:layout_width="0dp"
+        <!-- IMAGE VIEW PROFILE -->
+        <ImageView
+            android:id="@+id/item_message_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/ic_baseline_account_circle_48"/>
+
+    </LinearLayout>
+
+    <!-- MESSAGE CONTAINER -->
+    <LinearLayout
+        android:id="@+id/item_message_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center_vertical"
-        android:text="@string/item_message_text"
-        app:layout_constraintTop_toTopOf="@id/item_message_chat_avatar"
-        app:layout_constraintBottom_toBottomOf="@id/item_message_chat_avatar"
-        app:layout_constraintStart_toEndOf="@id/item_message_chat_avatar"/>
+        android:orientation="vertical"
+        android:layout_margin="@dimen/default_margin"
+        app:layout_constraintEnd_toStartOf="@id/item_message_profile_container"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- IMAGE SENT CONTAINER -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_radius_primary_color">
+
+            <!-- IMAGE SENT -->
+            <ImageView
+                android:id="@+id/item_message_sender_imageview"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- TEXT MESSAGE CONTAINER -->
+        <LinearLayout
+            android:id="@+id/item_message_text_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_chat_message_background"
+            android:orientation="horizontal">
+
+            <!-- TEXT MESSAGE -->
+            <TextView
+                android:id="@+id/item_message_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/default_text_size"
+                android:padding="@dimen/default_margin"
+                tools:text="Text example" />
+
+        </LinearLayout>
+
+        <!-- DATE MESSAGE -->
+        <TextView
+            android:id="@+id/item_message_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/default_text_size_mini"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
