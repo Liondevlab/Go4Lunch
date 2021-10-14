@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -42,7 +43,7 @@ public class WorkmateListFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		mWorkmateListViewModel = new ViewModelProvider(this).get(WorkmateListViewModel.class);
 		// TODO: Use the ViewModel
-		mWorkmates = mUserManager.getAllUsers();
+
 	}
 
 	@Override

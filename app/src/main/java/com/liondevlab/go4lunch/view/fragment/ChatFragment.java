@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.liondevlab.go4lunch.R;
 import com.liondevlab.go4lunch.viewmodel.ChatViewModel;
+import com.liondevlab.go4lunch.viewmodel.WorkmateListViewModel;
 
 public class ChatFragment extends Fragment {
 
@@ -24,16 +25,17 @@ public class ChatFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-	                         @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_chat, container, false);
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mChatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+		// TODO: Use the ViewModel
+
 	}
 
 	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		mChatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
-		// TODO: Use the ViewModel
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+	                         @Nullable Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_chat, container, false);
 	}
 
 }

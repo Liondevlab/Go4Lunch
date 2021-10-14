@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.liondevlab.go4lunch.view.manager.UserManager;
+import com.liondevlab.go4lunch.view.repository.UserRepository;
 
 import java.util.concurrent.Executor;
 
@@ -16,7 +17,7 @@ import java.util.concurrent.Executor;
 public class SignInViewModel extends ViewModel {
 
 	private final MutableLiveData<Boolean> mUserConnectedLiveData = new MutableLiveData<>();
-	private final UserManager mUserManager = new UserManager();
+	private final UserRepository mUserRepository = new UserRepository();
 
 	public LiveData<Boolean> getUserConnectedLiveData() {
 		return mUserConnectedLiveData;
@@ -28,7 +29,7 @@ public class SignInViewModel extends ViewModel {
 	}
 
 	public void createUser() {
-			mUserManager.createUser();
+			mUserRepository.createUser();
 	}
 
 }

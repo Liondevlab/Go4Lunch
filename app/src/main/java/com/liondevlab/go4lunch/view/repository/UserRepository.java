@@ -36,9 +36,10 @@ public final class UserRepository {
 	private static final String USERNAME_FIELD = "username";
 	private static final String IS_RESTAURANT_CHOSEN_FIELD = "isRestaurantChosen";
 	private static final String TAG = "UserRepository";
+	FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
 	private ArrayList<User> mUserList;
 
-	private UserRepository() { }
+	public UserRepository() { }
 
 	public static UserRepository getInstance() {
 		UserRepository result = instance;
@@ -64,25 +65,17 @@ public final class UserRepository {
 		return (user != null)? user.getUid() : null;
 	}
 
+	@SuppressLint("RestrictedApi")
 	public ArrayList<User> getAllUsers() {
-		getUsersCollection().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-			@Override
-			public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-				if (queryDocumentSnapshots.isEmpty()) {
-					Log.d(TAG, "onSuccess: LIST EMPTY");
-				} else {
-					List<User> users = queryDocumentSnapshots.toObjects(User.class);
-					mUserList.addAll(users);
-					Log.d(TAG, "onSuccess: " + mUserList);
-				}
+		getUsersCollection().get().addOnSuccessListener(queryDocumentSnapshots -> {
+			if (queryDocumentSnapshots.isEmpty()) {
+				Log.d(TAG, "onSuccess: LIST EMPTY");
+			} else {
+				List<User> users = queryDocumentSnapshots.toObjects(User.class);
+				mUserList.addAll(users);
+				Log.d(TAG, "onSuccess: " + mUserList);
 			}
-		}).addOnFailureListener(new OnFailureListener() {
-			@SuppressLint("RestrictedApi")
-			@Override
-			public void onFailure(@NonNull Exception e) {
-				Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
-			}
-		});
+		}).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show());
 		return mUserList;
 	}
 

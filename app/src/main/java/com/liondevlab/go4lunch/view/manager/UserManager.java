@@ -44,18 +44,6 @@ public class UserManager {
 		return mUserRepository.getAllUsers();
 	}
 
-	public Boolean isCurrentUserLogged() {
-		return (this.getCurrentUser() != null);
-	}
-
-	public Task<Void> signOut(Context context){
-		return mUserRepository.signOut(context);
-	}
-
-	public void createUser() {
-		mUserRepository.createUser();
-	}
-
 	public Task<User> getUserData() {
 		// Get the user from Firestore and cast it to a model object
 		return Objects.requireNonNull(mUserRepository.getUserData()).continueWith(task -> task.getResult().toObject(User.class));

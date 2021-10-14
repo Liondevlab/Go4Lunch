@@ -2,6 +2,8 @@ package com.liondevlab.go4lunch.model;
 
 import androidx.annotation.Nullable;
 
+import java.lang.reflect.Type;
+
 /**
  * Go4Lunch
  * Created by LioNDeVLaB on 15/09/2021

@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.liondevlab.go4lunch.view.manager.UserManager;
+import com.liondevlab.go4lunch.view.repository.UserRepository;
 
 /**
  * Go4Lunch
@@ -18,7 +19,7 @@ import com.liondevlab.go4lunch.view.manager.UserManager;
 public class MainViewModel extends ViewModel {
 
 	private final MutableLiveData<Boolean> mUserConnectedLiveData = new MutableLiveData<>();
-	private final UserManager mUserManager = new UserManager();
+	private final UserRepository mUserRepository = new UserRepository();
 
 	public LiveData<Boolean> getUserConnectedLiveData() {
 		return mUserConnectedLiveData;
@@ -29,10 +30,10 @@ public class MainViewModel extends ViewModel {
 		mUserConnectedLiveData.setValue(isUserConnected);
 	}
 	public FirebaseUser getCurrentUser() {
-		return mUserManager.getCurrentUser();
+		return mUserRepository.getCurrentUser();
 	}
 
 	public Task<Void> signOut(Context context) {
-		return mUserManager.signOut(context);
+		return mUserRepository.signOut(context);
 	}
 }
