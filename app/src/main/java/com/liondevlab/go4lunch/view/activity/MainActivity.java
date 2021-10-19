@@ -40,7 +40,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mMainViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(MainViewModel.class);
+		mMainViewModel = new ViewModelProvider(this, ViewModelProvider
+				.AndroidViewModelFactory
+				.getInstance(getApplication()))
+				.get(MainViewModel.class);
 		mBinding = ActivityMainBinding.inflate(getLayoutInflater());
 		setContentView(mBinding.getRoot());
 		this.configureToolBar();

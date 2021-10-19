@@ -12,11 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.liondevlab.go4lunch.R;
+import com.liondevlab.go4lunch.databinding.FragmentChatBinding;
+import com.liondevlab.go4lunch.databinding.FragmentRestaurantMapBinding;
 import com.liondevlab.go4lunch.viewmodel.RestaurantMapViewModel;
 
-public class RestaurantMapFragment extends Fragment {
+public class RestaurantMapFragment extends Fragment implements OnMapReadyCallback {
 
+	private GoogleMap mGoogleMap;
 	private RestaurantMapViewModel mRestaurantMapViewModel;
 
 	public static RestaurantMapFragment newInstance() {
@@ -26,14 +35,40 @@ public class RestaurantMapFragment extends Fragment {
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
 	                         @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_restaurant_map, container, false);
-	}
-
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
 		mRestaurantMapViewModel = new ViewModelProvider(this).get(RestaurantMapViewModel.class);
-		// TODO: Use the ViewModel
+		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
+		FragmentRestaurantMapBinding fragmentRestaurantMapBinding = FragmentRestaurantMapBinding.inflate(inflater, container, false);
+		initGoogleMap();
+		return fragmentRestaurantMapBinding.getRoot();
 	}
 
+	private void initGoogleMap() {
+		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+		if (mapFragment != null) {
+			mapFragment.getMapAsync(this);
+		}
+	}
+
+
+	/**
+	 * Manipulates the map once available.
+	 * This callback is triggered when the map is ready to be used.
+	 * This is where we can add markers or lines, add listeners or move the camera. In this case,
+	 * we just add a marker near Sydney, Australia.
+	 *
+	 * If Google Play services is not installed on the device, the user will be prompted to install
+	 * it inside the SupportMapFragment. This method will only be triggered once the user has
+	 * installed Google Play services and returned to the app.
+	 */
+	@Override
+	public void onMapReady(GoogleMap googleMap) {
+		mGoogleMap = googleMap;
+
+		// Add a marker in Sydney and move the camera
+		LatLng sydney = new LatLng(-34, 151);
+		mGoogleMap.addMarker(new MarkerOptions()
+				.position(sydney)
+				.title("Marker in Sydney"));
+		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+	}
 }

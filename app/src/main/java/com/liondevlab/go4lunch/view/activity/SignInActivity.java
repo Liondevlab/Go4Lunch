@@ -42,7 +42,6 @@ public class SignInActivity extends BaseActivity<ActivitySignInBinding> {
 	);
 
 	private void setupListeners() {
-		// Login Button
 		mSignInViewModel.getUserConnectedLiveData().observe(this, new Observer<Boolean>() {
 			@Override
 			public void onChanged(Boolean isConnected) {

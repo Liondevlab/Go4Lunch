@@ -4,6 +4,10 @@
     <string name="fb_login_protocol_scheme" translatable="false">fb866904250601022</string>
     <!-- END -->
 
+    <!-- GOOGLE API -->
+    <string name="maps_api_key" translatable="false">AIzaSyAx0Xc-MeO9vL92rlS6FSZHJP0CbpNNNek</string>
+    <!-- END -->
+
     <string name="app_name" translatable="false">Go4Lunch</string>
     <string name="title_activity_search_lunch" translatable="false">SearchLunchActivity</string>
     <string name="title_restaurant_map" translatable="false">Restaurant map</string>

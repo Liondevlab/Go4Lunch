@@ -21,14 +21,6 @@ public class MainViewModel extends ViewModel {
 	private final MutableLiveData<Boolean> mUserConnectedLiveData = new MutableLiveData<>();
 	private final UserRepository mUserRepository = new UserRepository();
 
-	public LiveData<Boolean> getUserConnectedLiveData() {
-		return mUserConnectedLiveData;
-	}
-
-	public void checkIfUserConnected() {
-		Boolean isUserConnected = FirebaseAuth.getInstance().getCurrentUser() != null;
-		mUserConnectedLiveData.setValue(isUserConnected);
-	}
 	public FirebaseUser getCurrentUser() {
 		return mUserRepository.getCurrentUser();
 	}
