@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.liondevlab.go4lunch.model.User;
-import com.liondevlab.go4lunch.view.repository.UserRepository;
+import com.liondevlab.go4lunch.service.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Objects;

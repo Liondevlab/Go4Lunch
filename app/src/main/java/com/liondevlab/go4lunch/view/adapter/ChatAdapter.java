@@ -10,16 +10,17 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.liondevlab.go4lunch.R;
 import com.liondevlab.go4lunch.databinding.ItemMessageBinding;
 import com.liondevlab.go4lunch.model.Message;
-import com.liondevlab.go4lunch.view.repository.UserRepository;
+import com.liondevlab.go4lunch.service.UserRepository;
+import com.liondevlab.go4lunch.view.item.MessageStateItem;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,11 +31,8 @@ import java.util.Locale;
  * Go4Lunch
  * Created by LioNDeVLaB on 14/10/2021
  */
-public class ChatAdapter extends FirestoreRecyclerAdapter<Message, ChatAdapter.ChatViewHolder> {
+public class ChatAdapter extends ListAdapter<MessageStateItem, ChatAdapter.ChatViewHolder> {
 
-	public interface Listener {
-		void onDataChanged();
-	}
 
 	// VIEW TYPES
 	private static final int SENDER_TYPE = 1;
@@ -42,27 +40,9 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<Message, ChatAdapter.C
 
 	private final RequestManager glide;
 
-	private final Listener callBack;
-
-	public ChatAdapter(@NonNull FirestoreRecyclerOptions<Message> options, RequestManager glide, Listener callBack) {
-		super(options);
+	public ChatAdapter(RequestManager glide) {
+		super(new ListNeighbourItemCallback());
 		this.glide = glide;
-		this.callBack = callBack;
-	}
-
-	@Override
-	public int getItemViewType(int position) {
-		// Determine if the user is the sender of the message
-		String currentUserId = UserRepository.getInstance().getCurrentUserUID();
-		boolean isSender = getItem(position).getUserSender().getUserId().equals(currentUserId);
-
-		return (isSender) ? SENDER_TYPE : RECEIVER_TYPE;
-	}
-
-	@Override
-	protected void onBindViewHolder(@NonNull ChatViewHolder holder, int position, @NonNull Message model) {
-		holder.itemView.invalidate();
-		holder.updateWithMessage(model, this.glide);
 	}
 
 	@NonNull
@@ -73,9 +53,18 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<Message, ChatAdapter.C
 	}
 
 	@Override
-	public void onDataChanged() {
-		super.onDataChanged();
-		this.callBack.onDataChanged();
+	public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
+		holder.itemView.invalidate();
+		holder.updateWithMessage(getItem(position), this.glide);
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		// Determine if the user is the sender of the message
+		String currentUserId = UserRepository.getInstance().getCurrentUserUID();
+		boolean isSender = getItem(position).getUserSender().getUserId().equals(currentUserId);
+
+		return (isSender) ? SENDER_TYPE : RECEIVER_TYPE;
 	}
 
 	// ------ ViewHolder ------
@@ -98,7 +87,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<Message, ChatAdapter.C
 
 		}
 
-		public void updateWithMessage(Message message, RequestManager glide) {
+		public void updateWithMessage(MessageStateItem message, RequestManager glide) {
 
 			// Update Message
 			mItemMessageBinding.itemMessageTextview.setText(message.getMessageText());
@@ -172,4 +161,15 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<Message, ChatAdapter.C
 		}
 	}
 
+	private static class ListNeighbourItemCallback extends DiffUtil.ItemCallback<MessageStateItem> {
+		@Override
+		public boolean areItemsTheSame(@NonNull MessageStateItem oldItem, @NonNull MessageStateItem newItem) {
+			return oldItem.getUserSender().equals(newItem.getUserSender()) && oldItem.getMessageText().equals(newItem.getMessageText());
+		}
+
+		@Override
+		public boolean areContentsTheSame(@NonNull MessageStateItem oldItem, @NonNull MessageStateItem newItem) {
+			return oldItem.equals(newItem);
+		}
+	}
 }

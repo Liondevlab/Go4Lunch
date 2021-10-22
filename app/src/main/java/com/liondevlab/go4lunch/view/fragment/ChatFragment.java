@@ -1,13 +1,9 @@
 package com.liondevlab.go4lunch.view.fragment;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.DownloadManager;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,27 +12,17 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 import com.liondevlab.go4lunch.R;
-import com.liondevlab.go4lunch.databinding.ActivityMainBinding;
-import com.liondevlab.go4lunch.databinding.ActivitySignInBinding;
 import com.liondevlab.go4lunch.databinding.FragmentChatBinding;
 import com.liondevlab.go4lunch.model.Message;
 import com.liondevlab.go4lunch.view.adapter.ChatAdapter;
-import com.liondevlab.go4lunch.view.repository.ChatRepository;
 import com.liondevlab.go4lunch.viewmodel.ChatViewModel;
-import com.liondevlab.go4lunch.viewmodel.MainViewModel;
-import com.liondevlab.go4lunch.viewmodel.WorkmateListViewModel;
 
-import io.grpc.Context;
-
-public class ChatFragment extends Fragment implements ChatAdapter.Listener {
+public class ChatFragment extends Fragment {
 
 	private ChatViewModel mChatViewModel;
 	private ChatAdapter mChatAdapter;
@@ -72,21 +58,16 @@ public class ChatFragment extends Fragment implements ChatAdapter.Listener {
 	}
 
 	private void configureRecyclerView() {
-		this.mChatAdapter = new ChatAdapter(generateOptionsForAdapter
-				(mChatViewModel.getAllMessagesForChat()), Glide.with(this), this);
-
-		mChatAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-			@Override
-			public void onItemRangeInserted(int positionStart, int itemCount) {
-				super.onItemRangeInserted(positionStart, itemCount);
-				mFragmentChatBinding.chatRecyclerView
-						.smoothScrollToPosition(mChatAdapter.getItemCount());
-			}
-		});
+		this.mChatAdapter = new ChatAdapter(Glide.with(this));
 		mFragmentChatBinding.chatRecyclerView
 				.setLayoutManager(new LinearLayoutManager(this.getContext()));
 		mFragmentChatBinding.chatRecyclerView
 				.setAdapter(this.mChatAdapter);
+		getMessageList();
+	}
+
+	private void getMessageList() {
+		mChatViewModel.getAllMessages().observe(getViewLifecycleOwner(), mChatAdapter::submitList);
 	}
 
 	private void sendMessage() {

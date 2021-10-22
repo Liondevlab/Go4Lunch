@@ -2,13 +2,14 @@ package com.liondevlab.go4lunch.model;
 
 import androidx.annotation.Nullable;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 
 /**
  * Go4Lunch
  * Created by LioNDeVLaB on 15/09/2021
  */
-public class User {
+public class User implements Serializable {
 
 	private String userId;
 	private String username;

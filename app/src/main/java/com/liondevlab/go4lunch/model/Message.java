@@ -4,13 +4,14 @@ import androidx.annotation.Nullable;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Go4Lunch
  * Created by LioNDeVLaB on 04/10/2021
  */
-public class Message {
+public class Message implements Serializable {
 
 	private String messageId;
 	private String userId;
