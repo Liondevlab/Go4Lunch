@@ -26,14 +26,8 @@ public class RestaurantListFragment extends Fragment {
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
 	                         @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_restaurant_list, container, false);
-	}
-
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
 		mRestaurantListViewModel = new ViewModelProvider(this).get(RestaurantListViewModel.class);
-		// TODO: Use the ViewModel
+		return inflater.inflate(R.layout.fragment_restaurant_list, container, false);
 	}
 
 }

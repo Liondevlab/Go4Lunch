@@ -14,42 +14,54 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.liondevlab.go4lunch.R;
+import com.liondevlab.go4lunch.databinding.FragmentChatBinding;
+import com.liondevlab.go4lunch.databinding.FragmentWorkmateListBinding;
 import com.liondevlab.go4lunch.model.User;
+import com.liondevlab.go4lunch.view.adapter.ChatAdapter;
 import com.liondevlab.go4lunch.view.adapter.WorkmatesListAdapter;
-import com.liondevlab.go4lunch.view.manager.UserManager;
+import com.liondevlab.go4lunch.viewmodel.ChatViewModel;
 import com.liondevlab.go4lunch.viewmodel.WorkmateListViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WorkmateListFragment extends Fragment {
 
+	private WorkmatesListAdapter mWorkmatesListAdapter;
+	private FragmentWorkmateListBinding mFragmentWorkmateListBinding;
 	private WorkmateListViewModel mWorkmateListViewModel;
-	private UserManager mUserManager;
-
-	private ArrayList<User> mWorkmates = new ArrayList<>();
-
-	private final WorkmatesListAdapter mWorkmatesListAdapter = new WorkmatesListAdapter(mWorkmates);
-
-	private RecyclerView mWorkmateListRecyclerView;
 
 	public static WorkmateListFragment newInstance() {
 		return new WorkmateListFragment();
 	}
 
-
-	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		mWorkmateListViewModel = new ViewModelProvider(this).get(WorkmateListViewModel.class);
-		// TODO: Use the ViewModel
-
-	}
-
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
 	                         @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_workmate_list, container, false);
+		mWorkmateListViewModel = new ViewModelProvider(this).get(WorkmateListViewModel.class);
+		mFragmentWorkmateListBinding = FragmentWorkmateListBinding.inflate(inflater, container, false);
+		View rootView = mFragmentWorkmateListBinding.getRoot();
+		configureRecyclerView();
+
+		return rootView;
 	}
 
+	private void configureRecyclerView() {
+
+		RecyclerView recyclerView = mFragmentWorkmateListBinding.workmateListRecyclerView;
+		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+		this.mWorkmatesListAdapter = new WorkmatesListAdapter();
+		mFragmentWorkmateListBinding.workmateListRecyclerView
+				.setLayoutManager(new LinearLayoutManager(this.getContext()));
+		mFragmentWorkmateListBinding.workmateListRecyclerView
+				.setAdapter(this.mWorkmatesListAdapter);
+		recyclerView.setAdapter(mWorkmatesListAdapter);
+		getUserList();
+	}
+
+	private void getUserList() {
+		mWorkmateListViewModel.getAllUsers().observe(getViewLifecycleOwner(), mWorkmatesListAdapter::submitList);
+	}
 }

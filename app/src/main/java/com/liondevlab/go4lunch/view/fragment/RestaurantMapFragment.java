@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,6 +27,7 @@ import com.liondevlab.go4lunch.viewmodel.RestaurantMapViewModel;
 public class RestaurantMapFragment extends Fragment implements OnMapReadyCallback {
 
 	private GoogleMap mGoogleMap;
+
 	private RestaurantMapViewModel mRestaurantMapViewModel;
 
 	public static RestaurantMapFragment newInstance() {
@@ -65,10 +67,10 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		mGoogleMap = googleMap;
 
 		// Add a marker in Sydney and move the camera
-		LatLng sydney = new LatLng(-34, 151);
+		LatLng parisCloud = new LatLng(48.86955265365005, 2.33788665284974);
 		mGoogleMap.addMarker(new MarkerOptions()
-				.position(sydney)
-				.title("Marker in Sydney"));
-		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+				.position(parisCloud)
+				.title("CLoud Paris"));
+		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(parisCloud));
 	}
 }

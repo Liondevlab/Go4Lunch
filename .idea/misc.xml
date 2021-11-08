@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DEV/ProjetsAndroid/Go4Lunch-master/app/src/main/res/layout/activity_main.xml" value="0.11524822695035461" />
+        <entry key="..\:/DEV/ProjetsAndroid/Go4Lunch-master/app/src/main/res/layout/fragment_chat.xml" value="0.11524822695035461" />
+        <entry key="..\:/DEV/ProjetsAndroid/Go4Lunch-master/app/src/main/res/layout/fragment_restaurant_list.xml" value="0.13360507246376813" />
+        <entry key="..\:/DEV/ProjetsAndroid/Go4Lunch-master/app/src/main/res/layout/fragment_restaurant_map.xml" value="0.13858695652173914" />
+        <entry key="..\:/DEV/ProjetsAndroid/Go4Lunch-master/app/src/main/res/layout/item_message.xml" value="0.11524822695035461" />
+        <entry key="..\:/DEV/ProjetsAndroid/Go4Lunch-master/app/src/main/res/layout/item_workmate_list.xml" value="0.15217391304347827" />
+        <entry key="..\:/DEV/ProjetsAndroid/Go4Lunch-master/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22407407407407406" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/drawable-v24/button_radius_primary_color.xml" value="0.34322916666666664" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/drawable/ic_baseline_account_circle_48.xml" value="0.3640625" />
         <entry key="..\:/Dev/OpenClassRoom/Work/PRFE - Dev Apps Android/P7/Go4Lunch_Master/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.3640625" />
@@ -37,7 +44,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -17,14 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.liondevlab.go4lunch.R;
+import com.liondevlab.go4lunch.databinding.FragmentChatBinding;
 import com.liondevlab.go4lunch.databinding.ItemMessageBinding;
-import com.liondevlab.go4lunch.model.Message;
 import com.liondevlab.go4lunch.service.UserRepository;
 import com.liondevlab.go4lunch.view.item.MessageStateItem;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -33,7 +34,6 @@ import java.util.Locale;
  */
 public class ChatAdapter extends ListAdapter<MessageStateItem, ChatAdapter.ChatViewHolder> {
 
-
 	// VIEW TYPES
 	private static final int SENDER_TYPE = 1;
 	private static final int RECEIVER_TYPE = 2;
@@ -41,7 +41,7 @@ public class ChatAdapter extends ListAdapter<MessageStateItem, ChatAdapter.ChatV
 	private final RequestManager glide;
 
 	public ChatAdapter(RequestManager glide) {
-		super(new ListNeighbourItemCallback());
+		super(new ChatListNeighbourItemCallback());
 		this.glide = glide;
 	}
 
@@ -118,7 +118,7 @@ public class ChatAdapter extends ListAdapter<MessageStateItem, ChatAdapter.ChatV
 		private void updateLayoutFromSenderType() {
 
 			// Update Message Bubble Color Background
-			((GradientDrawable) mItemMessageBinding.itemMessageTextview.getBackground())
+			((GradientDrawable) mItemMessageBinding.itemMessageTextContainer.getBackground())
 					.setColor(isSender ? currentUserColor : remoteUserColor);
 
 			if(!isSender) {
@@ -146,7 +146,7 @@ public class ChatAdapter extends ListAdapter<MessageStateItem, ChatAdapter.ChatV
 			mItemMessageBinding.itemMessageContainer.requestLayout();
 
 			// Update the constraint (gravity) for the text of the message (content + date) (Align it to the left for receiver message)
-			LinearLayout.LayoutParams messageTextLayoutParams = (LinearLayout.LayoutParams) mItemMessageBinding.itemMessageContainer.getLayoutParams();
+			LinearLayout.LayoutParams messageTextLayoutParams = (LinearLayout.LayoutParams) mItemMessageBinding.itemMessageTextview.getLayoutParams();
 			messageTextLayoutParams.gravity = Gravity.START;
 			mItemMessageBinding.itemMessageContainer.requestLayout();
 
@@ -156,12 +156,12 @@ public class ChatAdapter extends ListAdapter<MessageStateItem, ChatAdapter.ChatV
 		}
 
 		private String convertDateToHour(Date date) {
-			DateFormat dateFormatHour = new SimpleDateFormat("HH:mm", Locale.getDefault());
+			DateFormat dateFormatHour = new SimpleDateFormat("dd/MM HH:mm", Locale.getDefault());
 			return dateFormatHour.format(date);
 		}
 	}
 
-	private static class ListNeighbourItemCallback extends DiffUtil.ItemCallback<MessageStateItem> {
+	private static class ChatListNeighbourItemCallback extends DiffUtil.ItemCallback<MessageStateItem> {
 		@Override
 		public boolean areItemsTheSame(@NonNull MessageStateItem oldItem, @NonNull MessageStateItem newItem) {
 			return oldItem.getUserSender().equals(newItem.getUserSender()) && oldItem.getMessageText().equals(newItem.getMessageText());

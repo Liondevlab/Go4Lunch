@@ -9,7 +9,7 @@
     android:layout_margin="@dimen/default_margin">
 
     <!-- PROFILE CONTAINER -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_message_profile_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,9 +24,12 @@
             android:id="@+id/item_message_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/ic_baseline_account_circle_48"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_account_circle_48"
+            android:contentDescription="@string/item_message_avatar" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- MESSAGE CONTAINER -->
     <LinearLayout
@@ -53,7 +56,8 @@
                 android:id="@+id/item_message_sender_imageview"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/item_message_image_sent" />
 
         </androidx.cardview.widget.CardView>
 
@@ -86,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginTop="4dp"
+            android:backgroundTint="@color/colorAccent"
             android:textSize="@dimen/default_text_size_mini"
             android:textStyle="bold" />
 

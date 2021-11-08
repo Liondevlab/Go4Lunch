@@ -42,11 +42,12 @@ public class SignInActivity extends BaseActivity<ActivitySignInBinding> {
 	);
 
 	private void setupListeners() {
+		mSignInViewModel.checkIfUserConnected();
 		mSignInViewModel.getUserConnectedLiveData().observe(this, new Observer<Boolean>() {
 			@Override
 			public void onChanged(Boolean isConnected) {
 				if(isConnected) {
-					startSearchActivity();
+					startMainActivity();
 				} else{
 					startSigningActivity();
 				}
@@ -56,7 +57,7 @@ public class SignInActivity extends BaseActivity<ActivitySignInBinding> {
 	}
 
 	// Launching Search Activity
-	private void startSearchActivity() {
+	private void startMainActivity() {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
@@ -88,7 +89,7 @@ public class SignInActivity extends BaseActivity<ActivitySignInBinding> {
 		if (result.getResultCode() == RESULT_OK) {
 			createUser();
 			showSnackBar(getString(R.string.connection_succeed));
-			startSearchActivity();
+			startMainActivity();
 		} else {
 			// ERRORS
 			if (response == null) {

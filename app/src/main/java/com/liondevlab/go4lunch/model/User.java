@@ -13,7 +13,6 @@ public class User implements Serializable {
 
 	private String userId;
 	private String username;
-	@Nullable
 	private String urlPicture = "";
 	private boolean isRestaurantChosen = false;
 

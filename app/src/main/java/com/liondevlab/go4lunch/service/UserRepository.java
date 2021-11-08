@@ -7,15 +7,20 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.liondevlab.go4lunch.model.Message;
 import com.liondevlab.go4lunch.model.User;
 
 import java.util.ArrayList;
@@ -27,27 +32,25 @@ import java.util.List;
  */
 public final class UserRepository {
 
-	private static volatile UserRepository instance;
+	private final MutableLiveData<List<User>> listOfUser = new MutableLiveData<>();
+
+	private static volatile UserRepository mUserRepository;
 	private static final String COLLECTION_NAME = "users";
 	private static final String USERNAME_FIELD = "username";
 	private static final String IS_RESTAURANT_CHOSEN_FIELD = "isRestaurantChosen";
 	private static final String TAG = "UserRepository";
-	FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-	private ArrayList<User> mUserList;
-
-	public UserRepository() { }
+	private final FirebaseHelper mFirebaseHelper;
 
 	public static UserRepository getInstance() {
-		UserRepository result = instance;
-		if (result != null) {
-			return result;
+		UserRepository result = mUserRepository;
+		if (mUserRepository == null) {
+			mUserRepository = new UserRepository();
 		}
-		synchronized(UserRepository.class) {
-			if (instance == null) {
-				instance = new UserRepository();
-			}
-			return instance;
-		}
+			return mUserRepository;
+	}
+
+	public UserRepository() {
+		mFirebaseHelper = FirebaseHelper.getInstance();
 	}
 
 	@Nullable
@@ -59,20 +62,6 @@ public final class UserRepository {
 	public String getCurrentUserUID() {
 		FirebaseUser user = getCurrentUser();
 		return (user != null)? user.getUid() : null;
-	}
-
-	@SuppressLint("RestrictedApi")
-	public ArrayList<User> getAllUsers() {
-		getUsersCollection().get().addOnSuccessListener(queryDocumentSnapshots -> {
-			if (queryDocumentSnapshots.isEmpty()) {
-				Log.d(TAG, "onSuccess: LIST EMPTY");
-			} else {
-				List<User> users = queryDocumentSnapshots.toObjects(User.class);
-				mUserList.addAll(users);
-				Log.d(TAG, "onSuccess: " + mUserList);
-			}
-		}).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show());
-		return mUserList;
 	}
 
 	// Get the Collection Reference
@@ -100,6 +89,27 @@ public final class UserRepository {
 				this.getUsersCollection().document(uid).set(userToCreate);
 			});
 		}
+	}
+
+	public MutableLiveData<List<User>> getAllUsers(){
+		mFirebaseHelper.getAllUsers().addOnCompleteListener(task -> {
+			if (task.isSuccessful()) {
+				ArrayList<User> users = new ArrayList<>();
+				for (QueryDocumentSnapshot document : task.getResult()) {
+					users.add(document.toObject(User.class));
+				}
+				listOfUser.postValue(users);
+			} else {
+				Log.d("Error", "Error getting documents: ", task.getException());
+			}
+		}).addOnFailureListener(new OnFailureListener() {
+			@Override
+			public void onFailure(@NonNull Exception e) {
+				//Handle error
+				listOfUser.postValue(null);
+			}
+		});
+		return listOfUser;
 	}
 
 	// Get User Data from Firestore

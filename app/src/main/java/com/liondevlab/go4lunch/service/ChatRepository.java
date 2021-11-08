@@ -76,7 +76,7 @@ public class ChatRepository {
 		mUserRepository.getUserData().addOnSuccessListener(userSnapshot -> {
 			User user = userSnapshot.toObject(User.class);
 			Message message = new Message(textMessage, user);
-			this.getChatCollection().document().collection(MESSAGE_COLLECTION).add(message);
+			this.getChatCollection().add(message);
 		});
 	}
 

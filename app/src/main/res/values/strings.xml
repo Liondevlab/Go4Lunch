@@ -22,7 +22,7 @@
     <string name="your_lunch">YOUR LUNCH</string>
     <string name="user_picture">User picture</string>
     <string name="workmate_picture">Workmate picture</string>
-    <string name="item_workmate_infos">%1$s is eating %2$s ( %3$s )</string>
+    <string name="item_workmate_chosen_lunch_text">%1$s is eating %2$s ( %3$s )</string>
     <string name="profile">Profile</string>
     <string name="search_bar">Search Bar</string>
     <string name="menu_button">Menu Button</string>
@@ -52,4 +52,7 @@
     <string name="text_view_chat_error">There is no message yet...</string>
     <string name="text_input_chat_fragment">Type your message here</string>
     <string name="button_send_message_chat_fragment">SEND</string>
+    <string name="item_message_avatar" translatable="false">Item Avatar</string>
+    <string name="item_message_image_sent" translatable="false">Image Sent</string>
+    <string name="item_workmate_lunch_not_chosen_text">%1$s is not yet decided...</string>
 </resources>
