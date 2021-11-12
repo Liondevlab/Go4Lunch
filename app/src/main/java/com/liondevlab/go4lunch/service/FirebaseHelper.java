@@ -1,8 +1,19 @@
 package com.liondevlab.go4lunch.service;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 /**
@@ -26,9 +37,8 @@ public class FirebaseHelper {
 	public final CollectionReference messageReference = db.collection(MESSAGE_COLLECTION);
 	public final CollectionReference userReference = db.collection(USER_COLLECTION);
 
-	public Task<QuerySnapshot> getAllMessages() {
-		//TODO use addSnapshotListener() instead of get() see Firestore to listen to update in real time
-		return messageReference.orderBy("dateCreated").get();
+	public Query getMessagesQuery() {
+		return messageReference.orderBy("dateCreated");
 	}
 
 	public Task<QuerySnapshot> getAllUsers() {

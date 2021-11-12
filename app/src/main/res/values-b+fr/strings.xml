@@ -3,8 +3,8 @@
     <string name="login">Connexion</string>
     <string name="connection_succeed">Vous êtes connecté!</string>
     <string name="error_authentication_canceled">Attention! Authentification annulée</string>
-    <string name="error_no_internet">Attention! Pas de connexion internet...</string>
-    <string name="error_unknown_error">Attention! Erreur inconnue...</string>
+    <string name="error_no_internet">Attention! Pas de connexion internet…</string>
+    <string name="error_unknown_error">Attention! Erreur inconnue…</string>
     <string name="search_activity_main">Search Activity</string>
     <string name="toolbar_profile_activity">Profile settings activity</string>
     <string name="button_login_text_logged">Go4Lunch!!!</string>
@@ -33,8 +33,13 @@
     <string name="info_no_username_found">Pas de nom d\'utilisateur trouvé</string>
     <string name="item_workmate_avatar_description">Workmate avatar</string>
     <string name="item_workmate_is_joining">%1$s y sera!</string>
-    <string name="text_view_chat_error">Il n\'y a pas encore de message...</string>
-    <string name="text_input_chat_fragment">Tapez votre message ici...</string>
+    <string name="text_view_chat_error">Il n\'y a pas encore de message…</string>
+    <string name="text_input_chat_fragment">Tapez votre message ici…</string>
     <string name="button_send_message_chat_fragment">ENVOYER</string>
-    <string name="item_workmate_lunch_not_chosen_text">%1$s n\'est pas encore décidé...</string>
+    <string name="item_workmate_lunch_not_chosen_text">%1$s n\'est pas encore décidé…</string>
+    <string name="permission_location_rationale">Go4Lunch need access to your position</string>
+    <string name="button_allow">Accept</string>
+    <string name="button_deny">Refuse</string>
+    <string name="permission_location_denied">Permission location denied</string>
+    <string name="permission_location_neverask">Permission for location will never be asked again</string>
 </resources>

@@ -28,17 +28,18 @@ public class ChatFragment extends Fragment {
 	private ChatViewModel mChatViewModel;
 	private ChatAdapter mChatAdapter;
 	private FragmentChatBinding mFragmentChatBinding;
+	private RecyclerView mRecyclerView;
 
-
+	//TODO adjust pan view and scrool automaticaly down
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mChatViewModel = new ViewModelProvider(requireActivity()).get(ChatViewModel.class);
 		mFragmentChatBinding = FragmentChatBinding.inflate(inflater, container, false);
 		View rootView = mFragmentChatBinding.getRoot();
-		RecyclerView recyclerView = rootView.findViewById(R.id.chat_recyclerView);
-		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+		mRecyclerView = rootView.findViewById(R.id.chat_recyclerView);
+		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 		configureRecyclerView();
-		recyclerView.setAdapter(mChatAdapter);
+		mRecyclerView.setAdapter(mChatAdapter);
 		setupListeners();
 		return rootView;
 	}
@@ -64,7 +65,8 @@ public class ChatFragment extends Fragment {
 	}
 
 	private void updateChatList(List<MessageStateItem> messages) {
-		mChatAdapter.submitList(messages);
+		Runnable runnable = () -> mRecyclerView.scrollToPosition(messages.size() - 1);
+		mChatAdapter.submitList(messages, runnable);
 		mFragmentChatBinding.emptyRecyclerView.setVisibility(messages.isEmpty() ? View.VISIBLE : View.GONE);
 	}
 

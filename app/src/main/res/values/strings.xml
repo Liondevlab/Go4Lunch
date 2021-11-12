@@ -5,7 +5,7 @@
     <!-- END -->
 
     <!-- GOOGLE API -->
-    <string name="maps_api_key" translatable="false">AIzaSyAx0Xc-MeO9vL92rlS6FSZHJP0CbpNNNek</string>
+    <string name="google_places_maps_api_key" translatable="false">AIzaSyAx0Xc-MeO9vL92rlS6FSZHJP0CbpNNNek</string>
     <!-- END -->
 
     <string name="app_name" translatable="false">Go4Lunch</string>
@@ -49,10 +49,15 @@
     <string name="item_workmate_avatar_description">Workmate avatar</string>
     <string name="item_workmate_is_joining">%1$s Is joining!</string>
     <string name="item_message_text" translatable="false">Chat message</string>
-    <string name="text_view_chat_error">There is no message yet...</string>
+    <string name="text_view_chat_error">There is no message yet…</string>
     <string name="text_input_chat_fragment">Type your message here</string>
     <string name="button_send_message_chat_fragment">SEND</string>
     <string name="item_message_avatar" translatable="false">Item Avatar</string>
     <string name="item_message_image_sent" translatable="false">Image Sent</string>
-    <string name="item_workmate_lunch_not_chosen_text">%1$s is not yet decided...</string>
+    <string name="item_workmate_lunch_not_chosen_text">%1$s is not yet decided…</string>
+    <string name="permission_location_rationale">Go4Lunch need access to your position</string>
+    <string name="button_allow">Accept</string>
+    <string name="button_deny">Refuse</string>
+    <string name="permission_location_denied">Permission location denied</string>
+    <string name="permission_location_neverask">Permission for location will never be asked again</string>
 </resources>

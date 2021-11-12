@@ -1,19 +1,26 @@
 package com.liondevlab.go4lunch.service;
 
+import static android.content.ContentValues.TAG;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.liondevlab.go4lunch.model.Message;
 import com.liondevlab.go4lunch.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Go4Lunch
@@ -52,7 +59,25 @@ public class ChatRepository {
 
 	public MutableLiveData<List<Message>> getAllMessageForChat(){
 		// TODO Sort by date and limit number of message to 50 in RecyclerView
-		mFirebaseHelper.getAllMessages().addOnCompleteListener(task -> {
+		//TODO use addSnapshotListener() instead of get() see Firestore to listen to update in real time
+		mFirebaseHelper.getMessagesQuery().addSnapshotListener(new EventListener<QuerySnapshot>() {
+			@Override
+			public void onEvent(@Nullable QuerySnapshot value,
+			                    @Nullable FirebaseFirestoreException e) {
+				if (e != null) {
+					Log.w(TAG, "Listen failed.", e);
+					return;
+				}
+				ArrayList<Message> messages = new ArrayList<>();
+				assert value != null;
+				for (QueryDocumentSnapshot document : value) {
+					messages.add(document.toObject(Message.class));
+				}
+				listOfMessage.postValue(messages);
+			}
+		});
+		return listOfMessage;
+		/*mFirebaseHelper.getMessagesQuery().addOnCompleteListener(task -> {
 			if (task.isSuccessful()) {
 				ArrayList<Message> messages = new ArrayList<>();
 				for (QueryDocumentSnapshot document : task.getResult()) {
@@ -68,12 +93,12 @@ public class ChatRepository {
 				//Handle error
 				listOfMessage.postValue(null);
 			}
-		});
-		return listOfMessage;
+		});*/
+
 	}
 
 	public void createMessageForChat(String textMessage) {
-		mUserRepository.getUserData().addOnSuccessListener(userSnapshot -> {
+		Objects.requireNonNull(mUserRepository.getUserData()).addOnSuccessListener(userSnapshot -> {
 			User user = userSnapshot.toObject(User.class);
 			Message message = new Message(textMessage, user);
 			this.getChatCollection().add(message);

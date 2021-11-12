@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,6 +65,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 		NavigationUI.setupWithNavController(navigationView, navController);
 		updateUIWithUserData();
+		// Initialize the SDK
+		Places.initialize(getApplicationContext(), String.valueOf(R.string.google_places_maps_api_key));
+
+		// Create a new PlacesClient instance
+		PlacesClient placesClient = Places.createClient(this);
 	}
 
 	@Override
