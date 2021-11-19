@@ -60,4 +60,6 @@
     <string name="button_deny">Refuse</string>
     <string name="permission_location_denied">Permission location denied</string>
     <string name="permission_location_neverask">Permission for location will never be asked again</string>
+    <string name="user_location">You are here!</string>
+    <string name="url_googleapis">https://maps.googleapis.com</string>
 </resources>

@@ -77,24 +77,6 @@ public class ChatRepository {
 			}
 		});
 		return listOfMessage;
-		/*mFirebaseHelper.getMessagesQuery().addOnCompleteListener(task -> {
-			if (task.isSuccessful()) {
-				ArrayList<Message> messages = new ArrayList<>();
-				for (QueryDocumentSnapshot document : task.getResult()) {
-					messages.add(document.toObject(Message.class));
-				}
-				listOfMessage.postValue(messages);
-			} else {
-				Log.d("Error", "Error getting documents: ", task.getException());
-			}
-		}).addOnFailureListener(new OnFailureListener() {
-			@Override
-			public void onFailure(@NonNull Exception e) {
-				//Handle error
-				listOfMessage.postValue(null);
-			}
-		});*/
-
 	}
 
 	public void createMessageForChat(String textMessage) {
