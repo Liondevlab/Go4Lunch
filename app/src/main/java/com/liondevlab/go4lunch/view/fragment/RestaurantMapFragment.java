@@ -2,20 +2,17 @@ package com.liondevlab.go4lunch.view.fragment;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -28,8 +25,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.provider.SyncStateContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +36,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -49,20 +45,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.liondevlab.go4lunch.R;
-import com.liondevlab.go4lunch.Utility.LoadingDialog;
 import com.liondevlab.go4lunch.databinding.FragmentRestaurantMapBinding;
-import com.liondevlab.go4lunch.model.Places.GooglePlaceModel;
-import com.liondevlab.go4lunch.model.Places.GoogleResponseModel;
 import com.liondevlab.go4lunch.model.Restaurant;
-import com.liondevlab.go4lunch.service.WebServices.RetrofitAPI;
-import com.liondevlab.go4lunch.service.WebServices.RetrofitClient;
 import com.liondevlab.go4lunch.viewmodel.RestaurantMapViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,9 +67,6 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @RuntimePermissions
 public class RestaurantMapFragment extends Fragment implements OnMapReadyCallback{
@@ -84,19 +76,23 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 	private FusedLocationProviderClient mFusedLocationProviderClient;
 	private LocationManager mLocationManager;
 	private Location mLocation;
-	private Criteria mCriteria;
 	private LatLng mLatLng;
-	private int mRadius = 1000;
-	private Context mContext;
-	private LoadingDialog mLoadingDialog;
-	private RetrofitAPI mRetrofitAPI;
-	private List<GooglePlaceModel> mGooglePlaceModelList;
+
+	//For Google Places
+	private int mRadius = 1500;
+	private String mPlaceId;
+	private String mPlaceName;
+	private String mPlaceAddress;
+	private String mPlaceOpeningHours;
+	private String mPlacePhoneNumber;
+	private String mPlacePhoto;
+	private LatLng mPlaceLatLng;
+	private List mPlaceLikelihoods;
 	public List<Restaurant> mRestaurantList;
 
 	private RestaurantMapViewModel mRestaurantMapViewModel;
 
-	public RestaurantMapFragment newInstance(Context context) {
-		this.mContext = context;
+	public RestaurantMapFragment newInstance() {
 		return new RestaurantMapFragment();
 	}
 
@@ -113,9 +109,6 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
 		FragmentRestaurantMapBinding fragmentRestaurantMapBinding = FragmentRestaurantMapBinding.inflate(inflater, container, false);
 		RestaurantMapFragmentPermissionsDispatcher.initGooglePlacesWithPermissionCheck(this);
-		mLoadingDialog = new LoadingDialog(requireActivity());
-		mRetrofitAPI = RetrofitClient.getRetrofitClient().create(RetrofitAPI.class);
-		mGooglePlaceModelList = new ArrayList<>();
 		initGoogleMap();
 		initGooglePlaces();
 		return fragmentRestaurantMapBinding.getRoot();
@@ -171,10 +164,45 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		// Create a new Places client instance. (Check for Context if good or not "this" by default doesn't work)
 		PlacesClient placesClient = Places.createClient(requireActivity().getApplicationContext());
 		// Use fields to define the data types to return.
-		List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
+		List<Place.Field> placeFields = Arrays.asList(Place.Field.ID,
+				Place.Field.NAME,
+				Place.Field.ADDRESS,
+				Place.Field.OPENING_HOURS,
+				Place.Field.PHONE_NUMBER,
+				Place.Field.PHOTO_METADATAS,
+				Place.Field.LAT_LNG);
 		// Use the builder to create a FindCurrentPlaceRequest.
-		FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
+		getPlaceLikelihoods(placesClient, placeFields);
+	}
 
+	private void getPlaceLikelihoods(PlacesClient placesClient, List<Place.Field> placeFields) {
+		FindCurrentPlaceRequest request = FindCurrentPlaceRequest.builder(placeFields).build();
+		if (ContextCompat.checkSelfPermission(requireActivity().getApplicationContext(),
+				ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			placesClient.findCurrentPlace(request).addOnCompleteListener(new OnCompleteListener<FindCurrentPlaceResponse>() {
+				@Override
+				public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
+					if (task.isSuccessful()) {
+						FindCurrentPlaceResponse response = task.getResult();
+						mPlaceLikelihoods = new ArrayList<>();
+						mPlaceLikelihoods.addAll(response.getPlaceLikelihoods());
+
+						//response.getPlaceLikelihoods() will return list of PlaceLikelihood
+						//we need to create a custom comparator to sort list by likelihoods
+						Collections.sort(mPlaceLikelihoods, new Comparator() {
+							@Override
+							public int compare(PlaceLikelihood placeLikelihood, PlaceLikelihood t1) {
+								return new Double(placeLikelihood.getLikelihood()).compareTo(t1.getLikelihood());
+							}
+						});
+						//After sort ,it will order by ascending , we just reverse it to get first item as nearest place
+						Collections.reverse(mPlaceLikelihoods);
+
+						mPlaceId = mPlaceLikelihoods.get(0).getPlace().getId();
+					}
+				}
+			})
+		}
 	}
 
 	@OnShowRationale({ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE})
@@ -230,45 +258,7 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		//TODO
 	}
 
-	private void getPlaces(String placeName) {
-		mLoadingDialog.startLoading();
-		String url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + mLocation.getLatitude() + "," + mLocation.getLongitude()
-				+ "&radius=" + mRadius + "&types=" + placeName + "&key=" + getResources().getString(R.string.google_places_maps_api_key);
-		if (mLocation != null) {
-			mRetrofitAPI.getNearByPlaces(url).enqueue(new Callback<GoogleResponseModel>() {
-				@Override
-				public void onResponse(@NonNull Call<GoogleResponseModel> call, @NonNull Response<GoogleResponseModel> response) {
-					if (response.errorBody() == null) {
-						if (response.body() != null) {
-							if (response.body().getGooglePlaceModelList() != null && response.body().getGooglePlaceModelList().size() > 0) {
-								mGooglePlaceModelList.clear();
-								mGoogleMap.clear();
-								for (int i=0; i<response.body().getGooglePlaceModelList().size(); i++) {
-									mGooglePlaceModelList.add(response.body().getGooglePlaceModelList().get(i));
-									addMarker(response.body().getGooglePlaceModelList().get(i), 1);
-								}
-							} else {
-								mGoogleMap.clear();
-								mGooglePlaceModelList.clear();
-								mRadius += 500;
-								getPlaces(placeName);
-							}
-						}
-					} else {
-						Log.d("TAG", "onResponse: " + response.errorBody());
-						Toast.makeText(requireContext(), "Error  : " + response.errorBody(), Toast.LENGTH_SHORT).show();
-					}
-					mLoadingDialog.stopLoading();
-				}
 
-				@Override
-				public void onFailure(Call<GoogleResponseModel> call, Throwable t) {
-					Log.d("TAG", "onFailure: " + t);
-					mLoadingDialog.stopLoading();
-				}
-			});
-		}
-	}
 
 	private void addMarker(GooglePlaceModel googlePlaceModel, int position) {
 		MarkerOptions markerOptions = new MarkerOptions()
@@ -276,7 +266,7 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 				.title(googlePlaceModel.getName())
 				.snippet(googlePlaceModel.getVicinity());
 		markerOptions.icon(getCustomIcon());
-		mGoogleMap.addMarker(markerOptions).setTag(position);
+		Objects.requireNonNull(mGoogleMap.addMarker(markerOptions)).setTag(position);
 	}
 
 	private BitmapDescriptor getCustomIcon() {
@@ -289,6 +279,7 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 				background.mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 			}
 		}
+		assert background != null;
 		background.setBounds(0,0, background.getIntrinsicWidth(),background.getIntrinsicHeight());
 		Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(),background.getIntrinsicHeight()
 				,Bitmap.Config.ARGB_8888);

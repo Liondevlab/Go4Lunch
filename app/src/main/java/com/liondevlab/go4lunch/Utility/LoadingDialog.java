@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import androidx.fragment.app.Fragment;
+
 import com.liondevlab.go4lunch.R;
+import com.liondevlab.go4lunch.databinding.DialogLayoutBinding;
 
 /**
  * Go4Lunch
@@ -15,7 +18,7 @@ public class LoadingDialog {
 	private Activity activity;
 	private AlertDialog alertDialog;
 
-	public LoadingDialog(Activity activity) {
+	public LoadingDialog(Fragment fragment) {
 		this.activity = activity;
 	}
 

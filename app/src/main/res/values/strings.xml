@@ -62,4 +62,5 @@
     <string name="permission_location_neverask">Permission for location will never be asked again</string>
     <string name="user_location">You are here!</string>
     <string name="url_googleapis">https://maps.googleapis.com</string>
+    <string name="typeRestaurant">restaurant</string>
 </resources>
