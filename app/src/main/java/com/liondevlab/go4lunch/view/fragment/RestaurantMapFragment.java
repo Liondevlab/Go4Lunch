@@ -9,13 +9,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -37,6 +35,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -44,6 +43,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.model.OpeningHours;
+import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
@@ -59,7 +60,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -74,7 +74,6 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 	private GoogleMap mGoogleMap;
 	private SupportMapFragment mSupportMapFragment;
 	private FusedLocationProviderClient mFusedLocationProviderClient;
-	private LocationManager mLocationManager;
 	private Location mLocation;
 	private LatLng mLatLng;
 
@@ -83,11 +82,11 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 	private String mPlaceId;
 	private String mPlaceName;
 	private String mPlaceAddress;
-	private String mPlaceOpeningHours;
+	private OpeningHours mPlaceOpeningHours;
 	private String mPlacePhoneNumber;
-	private String mPlacePhoto;
+	private List<PhotoMetadata> mPlacePhoto;
 	private LatLng mPlaceLatLng;
-	private List mPlaceLikelihoods;
+	private List<PlaceLikelihood> mPlaceLikelihoods;
 	public List<Restaurant> mRestaurantList;
 
 	private RestaurantMapViewModel mRestaurantMapViewModel;
@@ -160,7 +159,7 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 	@NeedsPermission({ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE})
 	public void initGooglePlaces() {
 		// Initialize Places. (Check for Context if good or not)
-		Places.initialize(this.requireContext(), String.valueOf(R.string.google_places_maps_api_key));
+		Places.initialize(requireActivity().getApplicationContext(), String.valueOf(R.string.google_places_maps_api_key));
 		// Create a new Places client instance. (Check for Context if good or not "this" by default doesn't work)
 		PlacesClient placesClient = Places.createClient(requireActivity().getApplicationContext());
 		// Use fields to define the data types to return.
@@ -170,39 +169,57 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 				Place.Field.OPENING_HOURS,
 				Place.Field.PHONE_NUMBER,
 				Place.Field.PHOTO_METADATAS,
-				Place.Field.LAT_LNG);
+				Place.Field.LAT_LNG,
+				Place.Field.RATING,
+				Place.Field.TYPES);
 		// Use the builder to create a FindCurrentPlaceRequest.
-		getPlaceLikelihoods(placesClient, placeFields);
+		getCurrentPlaceLikelihoods(placesClient, placeFields);
 	}
 
-	private void getPlaceLikelihoods(PlacesClient placesClient, List<Place.Field> placeFields) {
+	@NeedsPermission({ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE})
+	public void getCurrentPlaceLikelihoods(PlacesClient placesClient, List<Place.Field> placeFields) {
 		FindCurrentPlaceRequest request = FindCurrentPlaceRequest.builder(placeFields).build();
 		if (ContextCompat.checkSelfPermission(requireActivity().getApplicationContext(),
 				ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-			placesClient.findCurrentPlace(request).addOnCompleteListener(new OnCompleteListener<FindCurrentPlaceResponse>() {
+			placesClient.findCurrentPlace(request).addOnCompleteListener(new OnCompleteListener() {
 				@Override
-				public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
+				public void onComplete(@NonNull Task task) {
 					if (task.isSuccessful()) {
-						FindCurrentPlaceResponse response = task.getResult();
+						FindCurrentPlaceResponse response = (FindCurrentPlaceResponse) task.getResult();
 						mPlaceLikelihoods = new ArrayList<>();
 						mPlaceLikelihoods.addAll(response.getPlaceLikelihoods());
 
 						//response.getPlaceLikelihoods() will return list of PlaceLikelihood
 						//we need to create a custom comparator to sort list by likelihoods
-						Collections.sort(mPlaceLikelihoods, new Comparator() {
-							@Override
-							public int compare(PlaceLikelihood placeLikelihood, PlaceLikelihood t1) {
-								return new Double(placeLikelihood.getLikelihood()).compareTo(t1.getLikelihood());
-							}
-						});
+						Collections.sort(mPlaceLikelihoods, (Comparator<PlaceLikelihood>)
+								(placeLikelihood, t1) -> new Double(placeLikelihood.getLikelihood())
+										.compareTo(t1.getLikelihood()));
 						//After sort ,it will order by ascending , we just reverse it to get first item as nearest place
 						Collections.reverse(mPlaceLikelihoods);
 
 						mPlaceId = mPlaceLikelihoods.get(0).getPlace().getId();
+						mPlaceName = mPlaceLikelihoods.get(0).getPlace().getName();
+						mPlaceAddress = mPlaceLikelihoods.get(0).getPlace().getAddress();
+						mPlaceOpeningHours = mPlaceLikelihoods.get(0).getPlace().getOpeningHours();
+						mPlacePhoneNumber = mPlaceLikelihoods.get(0).getPlace().getPhoneNumber();
+						mPlacePhoto = mPlaceLikelihoods.get(0).getPlace().getPhotoMetadatas();
+						mPlaceLatLng = mPlaceLikelihoods.get(0).getPlace().getLatLng();
+
+						//Removing item at 0 index
+						mPlaceLikelihoods.remove(0);
+
+						mSupportMapFragment.getMapAsync(RestaurantMapFragment.this);
 					}
 				}
-			})
+			}).addOnFailureListener(new OnFailureListener() {
+				@Override
+				public void onFailure(@NonNull Exception e) {
+
+					Toast.makeText(requireActivity().getApplicationContext(), "Place not found: " + e.getMessage(), Toast.LENGTH_LONG).show();
+				}
+			});
 		}
+		mRestaurantMapViewModel.createFirestoreRestaurantList(mPlaceLikelihoods);
 	}
 
 	@OnShowRationale({ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE})
@@ -260,14 +277,14 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 
 
 
-	private void addMarker(GooglePlaceModel googlePlaceModel, int position) {
+/*	private void addMarker(GooglePlaceModel googlePlaceModel, int position) {
 		MarkerOptions markerOptions = new MarkerOptions()
 				.position(new LatLng(googlePlaceModel.getGeometry().getLocation().getLat(), googlePlaceModel.getGeometry().getLocation().getLng()))
 				.title(googlePlaceModel.getName())
 				.snippet(googlePlaceModel.getVicinity());
 		markerOptions.icon(getCustomIcon());
 		Objects.requireNonNull(mGoogleMap.addMarker(markerOptions)).setTag(position);
-	}
+	}*/
 
 	private BitmapDescriptor getCustomIcon() {
 		int color = ContextCompat.getColor(requireContext(), R.color.quantum_googred900);
@@ -287,4 +304,5 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		background.draw(canvas);
 		return BitmapDescriptorFactory.fromBitmap(bitmap);
 	}
+
 }
