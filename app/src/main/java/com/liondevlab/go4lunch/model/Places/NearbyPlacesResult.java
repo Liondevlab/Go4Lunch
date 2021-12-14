@@ -1,71 +1,28 @@
 package com.liondevlab.go4lunch.model.Places;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
  * Go4Lunch
- * Created by LioNDeVLaB on 18/11/2021
+ * Created by LioNDeVLaB on 10/12/2021
  */
-public class GooglePlaceModel {
-
-	@SerializedName("business_status")
-	@Expose
+public class NearbyPlacesResult {
 	private String businessStatus;
-
-	@SerializedName("geometry")
-	@Expose
-	private GeometryModel geometry;
-
-	@SerializedName("icon")
-	@Expose
+	private Geometry geometry;
 	private String icon;
-
-	@SerializedName("icon_background_color")
-	@Expose
-	private String iconBackgroundColor;
-
-	@SerializedName("icon_mask_base_uri")
-	@Expose
-	private String iconMaskBaseUri;
-
-	@SerializedName("name")
-	@Expose
 	private String name;
-
-	@SerializedName("photos")
-	@Expose
-	private List<PhotoModel> photos = null;
-
-	@SerializedName("place_id")
-	@Expose
+	private Boolean permanentlyClosed;
+	private List<Photo> photos = null;
 	private String placeId;
-
-	@SerializedName("rating")
-	@Expose
+	private PlusCode plusCode;
 	private Double rating;
-
-	@SerializedName("reference")
-	@Expose
 	private String reference;
-
-	@SerializedName("scope")
-	@Expose
 	private String scope;
-
-	@SerializedName("types")
-	@Expose
 	private List<String> types = null;
-
-	@SerializedName("user_ratings_total")
-	@Expose
 	private Integer userRatingsTotal;
-
-	@SerializedName("vicinity")
-	@Expose
 	private String vicinity;
+	private OpeningHours openingHours;
+	private Integer priceLevel;
 
 	public String getBusinessStatus() {
 		return businessStatus;
@@ -75,11 +32,11 @@ public class GooglePlaceModel {
 		this.businessStatus = businessStatus;
 	}
 
-	public GeometryModel getGeometry() {
+	public Geometry getGeometry() {
 		return geometry;
 	}
 
-	public void setGeometry(GeometryModel geometry) {
+	public void setGeometry(Geometry geometry) {
 		this.geometry = geometry;
 	}
 
@@ -91,22 +48,6 @@ public class GooglePlaceModel {
 		this.icon = icon;
 	}
 
-	public String getIconBackgroundColor() {
-		return iconBackgroundColor;
-	}
-
-	public void setIconBackgroundColor(String iconBackgroundColor) {
-		this.iconBackgroundColor = iconBackgroundColor;
-	}
-
-	public String getIconMaskBaseUri() {
-		return iconMaskBaseUri;
-	}
-
-	public void setIconMaskBaseUri(String iconMaskBaseUri) {
-		this.iconMaskBaseUri = iconMaskBaseUri;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -115,11 +56,19 @@ public class GooglePlaceModel {
 		this.name = name;
 	}
 
-	public List<PhotoModel> getPhotos() {
+	public Boolean getPermanentlyClosed() {
+		return permanentlyClosed;
+	}
+
+	public void setPermanentlyClosed(Boolean permanentlyClosed) {
+		this.permanentlyClosed = permanentlyClosed;
+	}
+
+	public List<Photo> getPhotos() {
 		return photos;
 	}
 
-	public void setPhotos(List<PhotoModel> photos) {
+	public void setPhotos(List<Photo> photos) {
 		this.photos = photos;
 	}
 
@@ -129,6 +78,14 @@ public class GooglePlaceModel {
 
 	public void setPlaceId(String placeId) {
 		this.placeId = placeId;
+	}
+
+	public PlusCode getPlusCode() {
+		return plusCode;
+	}
+
+	public void setPlusCode(PlusCode plusCode) {
+		this.plusCode = plusCode;
 	}
 
 	public Double getRating() {
@@ -179,4 +136,19 @@ public class GooglePlaceModel {
 		this.vicinity = vicinity;
 	}
 
+	public OpeningHours getOpeningHours() {
+		return openingHours;
+	}
+
+	public void setOpeningHours(OpeningHours openingHours) {
+		this.openingHours = openingHours;
+	}
+
+	public Integer getPriceLevel() {
+		return priceLevel;
+	}
+
+	public void setPriceLevel(Integer priceLevel) {
+		this.priceLevel = priceLevel;
+	}
 }

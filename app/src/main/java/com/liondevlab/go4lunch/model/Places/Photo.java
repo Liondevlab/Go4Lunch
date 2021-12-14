@@ -1,30 +1,16 @@
 package com.liondevlab.go4lunch.model.Places;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
  * Go4Lunch
- * Created by LioNDeVLaB on 18/11/2021
+ * Created by LioNDeVLaB on 10/12/2021
  */
-public class PhotoModel {
+public class Photo {
 
-	@SerializedName("height")
-	@Expose
 	private Integer height;
-
-	@SerializedName("html_attributions")
-	@Expose
 	private List<String> htmlAttributions = null;
-
-	@SerializedName("photo_reference")
-	@Expose
 	private String photoReference;
-
-	@SerializedName("width")
-	@Expose
 	private Integer width;
 
 	public Integer getHeight() {
@@ -58,4 +44,5 @@ public class PhotoModel {
 	public void setWidth(Integer width) {
 		this.width = width;
 	}
+
 }

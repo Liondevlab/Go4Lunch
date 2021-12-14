@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -65,11 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 		NavigationUI.setupWithNavController(navigationView, navController);
 		updateUIWithUserData();
-		// Initialize the SDK
-		Places.initialize(getApplicationContext(), String.valueOf(R.string.google_places_maps_api_key));
 
-		// Create a new PlacesClient instance
-		PlacesClient placesClient = Places.createClient(this);
 	}
 
 	@Override
@@ -88,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		}
 	}
 
+	@SuppressLint("NonConstantResourceId")
 	@Override
 	public boolean onNavigationItemSelected(MenuItem item) {
 		// 4 - Handle Navigation Item Click

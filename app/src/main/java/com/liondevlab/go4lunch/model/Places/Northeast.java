@@ -1,20 +1,12 @@
 package com.liondevlab.go4lunch.model.Places;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Go4Lunch
- * Created by LioNDeVLaB on 18/11/2021
+ * Created by LioNDeVLaB on 10/12/2021
  */
-public class LocationModel {
+public class Northeast {
 
-	@SerializedName("lat")
-	@Expose
 	private Double lat;
-
-	@SerializedName("lng")
-	@Expose
 	private Double lng;
 
 	public Double getLat() {
@@ -32,4 +24,5 @@ public class LocationModel {
 	public void setLng(Double lng) {
 		this.lng = lng;
 	}
+
 }

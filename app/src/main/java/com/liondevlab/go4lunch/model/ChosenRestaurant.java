@@ -4,15 +4,24 @@ package com.liondevlab.go4lunch.model;
  * Go4Lunch
  * Created by LioNDeVLaB on 12/10/2021
  */
-public class Favorite {
+public class ChosenRestaurant {
 
+	private String date;
 	private String userId;
 	private String restaurantId;
 
-	public Favorite(String userId, String restaurantId) {
-
+	public ChosenRestaurant(String date, String userId, String restaurantId) {
+		this.date = date;
 		this.userId = userId;
 		this.restaurantId = restaurantId;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public String getUserId() {
