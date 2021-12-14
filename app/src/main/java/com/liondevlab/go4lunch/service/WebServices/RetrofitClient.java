@@ -3,14 +3,12 @@ package com.liondevlab.go4lunch.service.WebServices;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.liondevlab.go4lunch.R;
+import com.liondevlab.go4lunch.BuildConfig;
 
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Go4Lunch
@@ -18,8 +16,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class RetrofitClient {
 
-	public static final String BASE_URL = String.valueOf(R.string.url_googleapis);
-	public static final String PHOTOS_URL = String.valueOf(R.string.url_places_photos);
+	public static final String BASE_URL = "https://maps.googleapis.com/maps/api/place/";
+	public static final String PHOTOS_URL = "photo?maxwidth=400&photoreference=";
+	public static final String API_KEY = BuildConfig.API_KEY;
 
 	public static Retrofit getRetrofitClient() {
 

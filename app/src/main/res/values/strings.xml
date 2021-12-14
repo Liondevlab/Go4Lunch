@@ -62,5 +62,5 @@
     <string name="permission_location_neverask">Permission for location will never be asked again</string>
     <string name="user_location">You are here!</string>
     <string name="url_googleapis" translatable="false">https://maps.googleapis.com/maps/api/place/</string>
-    <string name="url_places_photos"><![CDATA[photo?maxwidth=400&photoreference=]]></string>
+    <string name="url_places_photos" translatable="false"><![CDATA[photo?maxwidth=400&photoreference=]]></string>
 </resources>

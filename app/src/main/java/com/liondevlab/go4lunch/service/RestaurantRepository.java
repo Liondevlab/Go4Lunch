@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.liondevlab.go4lunch.BuildConfig;
 import com.liondevlab.go4lunch.R;
 import com.liondevlab.go4lunch.model.Places.NearbyPlaces;
 import com.liondevlab.go4lunch.model.Places.NearbyPlacesResult;
@@ -105,7 +106,7 @@ public class RestaurantRepository {
 		List<NearbyPlacesResult> placesResultList = new ArrayList<>();
 		mRetrofitApi.getNearbyPlaces(latitude + "," + longitude,
 				"1000", "restaurant",
-				String.valueOf(R.string.google_places_maps_api_key))
+				RetrofitClient.API_KEY)
 				.enqueue(new Callback<NearbyPlaces>() {
 					@Override
 					public void onResponse(@NonNull Call<NearbyPlaces> call, @NonNull Response<NearbyPlaces> response) {
@@ -141,16 +142,16 @@ public class RestaurantRepository {
 						}
 					}
 					@Override
-					public void onFailure(Call<NearbyPlaces> call, Throwable t) {
+					public void onFailure(@NonNull Call<NearbyPlaces> call, @NonNull Throwable t) {
 						//TODO
 					}
 				});
 	}
 
 	private void getPlacesDetails(String placeId, List<Restaurant> restaurantList, int counter, MutableLiveData<List<Restaurant>> data) {
-		mRetrofitApi.getPlacesDetails(String.valueOf(R.string.google_places_maps_api_key), placeId).enqueue(new Callback<PlaceDetails>() {
+		mRetrofitApi.getPlacesDetails(RetrofitClient.API_KEY, placeId).enqueue(new Callback<PlaceDetails>() {
 			@Override
-			public void onResponse(Call<PlaceDetails> call, Response<PlaceDetails> response) {
+			public void onResponse(@NonNull Call<PlaceDetails> call, @NonNull Response<PlaceDetails> response) {
 				Restaurant restaurant = setRestaurant(Objects.requireNonNull(response.body()).getResult(), placeId);
 				if (restaurant != null){
 					restaurantList.add(restaurant);
@@ -162,7 +163,7 @@ public class RestaurantRepository {
 			}
 
 			@Override
-			public void onFailure(Call<PlaceDetails> call, Throwable t) {
+			public void onFailure(@NonNull Call<PlaceDetails> call, @NonNull Throwable t) {
 				//TODO
 			}
 		});
@@ -175,7 +176,7 @@ public class RestaurantRepository {
 					+ RetrofitClient.PHOTOS_URL
 					+ placeDetails.getPhotos().get(0).getPhotoReference()
 					+ "&key="
-					+ String.valueOf(R.string.google_places_maps_api_key);
+					+ RetrofitClient.API_KEY;
 		}
 		int distance = 0;
 		List<Period> openHours = new ArrayList<>();
