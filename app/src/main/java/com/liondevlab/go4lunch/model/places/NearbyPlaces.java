@@ -1,4 +1,4 @@
-package com.liondevlab.go4lunch.model.Places;
+package com.liondevlab.go4lunch.model.places;
 
 import java.util.List;
 

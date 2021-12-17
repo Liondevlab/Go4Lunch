@@ -1,26 +1,28 @@
 package com.liondevlab.go4lunch.model;
 
+import java.util.Date;
+
 /**
  * Go4Lunch
  * Created by LioNDeVLaB on 12/10/2021
  */
 public class ChosenRestaurant {
 
-	private String date;
+	private Date date;
 	private String userId;
 	private String restaurantId;
 
-	public ChosenRestaurant(String date, String userId, String restaurantId) {
+	public ChosenRestaurant(Date date, String userId, String restaurantId) {
 		this.date = date;
 		this.userId = userId;
 		this.restaurantId = restaurantId;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

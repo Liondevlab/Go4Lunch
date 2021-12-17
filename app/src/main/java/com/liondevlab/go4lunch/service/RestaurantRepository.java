@@ -5,15 +5,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.liondevlab.go4lunch.BuildConfig;
 import com.liondevlab.go4lunch.R;
-import com.liondevlab.go4lunch.model.Places.NearbyPlaces;
-import com.liondevlab.go4lunch.model.Places.NearbyPlacesResult;
-import com.liondevlab.go4lunch.model.Places.NearbyPlacesResultDetails;
-import com.liondevlab.go4lunch.model.Places.Period;
-import com.liondevlab.go4lunch.model.Places.PlaceDetails;
+import com.liondevlab.go4lunch.model.places.NearbyPlaces;
+import com.liondevlab.go4lunch.model.places.NearbyPlacesResult;
+import com.liondevlab.go4lunch.model.places.NearbyPlacesResultDetails;
 import com.liondevlab.go4lunch.model.Restaurant;
 import com.liondevlab.go4lunch.model.User;
+import com.liondevlab.go4lunch.model.places.ResponseModel;
 import com.liondevlab.go4lunch.service.WebServices.RetrofitAPI;
 import com.liondevlab.go4lunch.service.WebServices.RetrofitClient;
 
@@ -71,6 +69,7 @@ public class RestaurantRepository {
 	}
 
 	public void getFirestoreCollections(MutableLiveData<List<Restaurant>> data, boolean isFiltered, String input) {
+		// TODO change user by choice
 		List<User> workmatesList = new ArrayList<>();
 		List<Restaurant> restaurantsList = new ArrayList<>();
 		mFirebaseHelper.userReference.get().addOnCompleteListener(taskWorkmate -> {
@@ -149,9 +148,9 @@ public class RestaurantRepository {
 	}
 
 	private void getPlacesDetails(String placeId, List<Restaurant> restaurantList, int counter, MutableLiveData<List<Restaurant>> data) {
-		mRetrofitApi.getPlacesDetails(RetrofitClient.API_KEY, placeId).enqueue(new Callback<PlaceDetails>() {
+		mRetrofitApi.getPlacesDetails(RetrofitClient.API_KEY, placeId).enqueue(new Callback<ResponseModel.PlaceDetails>() {
 			@Override
-			public void onResponse(@NonNull Call<PlaceDetails> call, @NonNull Response<PlaceDetails> response) {
+			public void onResponse(@NonNull Call<ResponseModel.PlaceDetails> call, @NonNull Response<ResponseModel.PlaceDetails> response) {
 				Restaurant restaurant = setRestaurant(Objects.requireNonNull(response.body()).getResult(), placeId);
 				if (restaurant != null){
 					restaurantList.add(restaurant);
@@ -163,7 +162,7 @@ public class RestaurantRepository {
 			}
 
 			@Override
-			public void onFailure(@NonNull Call<PlaceDetails> call, @NonNull Throwable t) {
+			public void onFailure(@NonNull Call<ResponseModel.PlaceDetails> call, @NonNull Throwable t) {
 				//TODO
 			}
 		});
@@ -179,7 +178,7 @@ public class RestaurantRepository {
 					+ RetrofitClient.API_KEY;
 		}
 		int distance = 0;
-		List<Period> openHours = new ArrayList<>();
+		List<ResponseModel.Period> openHours = new ArrayList<>();
 		if (placeDetails.getOpeningHours() != null) {
 			openHours = placeDetails.getOpeningHours().getPeriods();
 		}

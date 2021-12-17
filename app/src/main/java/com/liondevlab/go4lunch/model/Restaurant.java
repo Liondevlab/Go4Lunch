@@ -1,7 +1,6 @@
 package com.liondevlab.go4lunch.model;
 
-import com.liondevlab.go4lunch.model.Places.Location;
-import com.liondevlab.go4lunch.model.Places.Period;
+import com.liondevlab.go4lunch.model.places.ResponseModel;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,9 +17,9 @@ public class Restaurant implements Serializable {
 	String address;
 	String website;
 	String phoneNumber;
-	Location location;
+	ResponseModel.Location location;
 	int distance;
-	List<Period> openingHours;
+	List<ResponseModel.Period> openingHours;
 	double rating;
 
 	public Restaurant() {
@@ -33,9 +32,9 @@ public class Restaurant implements Serializable {
 	                  String address,
 	                  String website,
 	                  String phoneNumber,
-	                  Location location,
+	                  ResponseModel.Location location,
 	                  int distance,
-	                  List<Period> openingHours,
+	                  List<ResponseModel.Period> openingHours,
 	                  double rating) {
 
 		this.restaurantId = restaurantId;
@@ -99,11 +98,11 @@ public class Restaurant implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Location getLocation() {
+	public ResponseModel.Location getLocation() {
 		return location;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(ResponseModel.Location location) {
 		this.location = location;
 	}
 
@@ -115,11 +114,11 @@ public class Restaurant implements Serializable {
 		this.distance = distance;
 	}
 
-	public List<Period> getOpeningHours() {
+	public List<ResponseModel.Period> getOpeningHours() {
 		return openingHours;
 	}
 
-	public void setOpeningHours(List<Period> openingHours) {
+	public void setOpeningHours(List<ResponseModel.Period> openingHours) {
 		this.openingHours = openingHours;
 	}
 

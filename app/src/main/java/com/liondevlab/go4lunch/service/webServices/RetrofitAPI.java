@@ -1,12 +1,11 @@
 package com.liondevlab.go4lunch.service.WebServices;
 
-import com.liondevlab.go4lunch.model.Places.NearbyPlaces;
-import com.liondevlab.go4lunch.model.Places.PlaceDetails;
+import com.liondevlab.go4lunch.model.places.NearbyPlaces;
+import com.liondevlab.go4lunch.model.places.ResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 /**
  * Go4Lunch
@@ -23,7 +22,7 @@ public interface RetrofitAPI {
 	);
 
 	@GET("details/json")
-	Call<PlaceDetails> getPlacesDetails(
+	Call<ResponseModel.PlaceDetails> getPlacesDetails(
 			@Query("key") String key,
 			@Query("place_id") String placeId);
 

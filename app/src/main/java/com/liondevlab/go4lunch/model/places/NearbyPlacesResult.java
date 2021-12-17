@@ -1,4 +1,4 @@
-package com.liondevlab.go4lunch.model.Places;
+package com.liondevlab.go4lunch.model.places;
 
 import java.util.List;
 
@@ -8,20 +8,20 @@ import java.util.List;
  */
 public class NearbyPlacesResult {
 	private String businessStatus;
-	private Geometry geometry;
+	private ResponseModel.Geometry geometry;
 	private String icon;
 	private String name;
 	private Boolean permanentlyClosed;
-	private List<Photo> photos = null;
+	private List<ResponseModel.Photo> photos = null;
 	private String placeId;
-	private PlusCode plusCode;
+	private ResponseModel.PlusCode plusCode;
 	private Double rating;
 	private String reference;
 	private String scope;
 	private List<String> types = null;
 	private Integer userRatingsTotal;
 	private String vicinity;
-	private OpeningHours openingHours;
+	private ResponseModel.OpeningHours openingHours;
 	private Integer priceLevel;
 
 	public String getBusinessStatus() {
@@ -32,11 +32,11 @@ public class NearbyPlacesResult {
 		this.businessStatus = businessStatus;
 	}
 
-	public Geometry getGeometry() {
+	public ResponseModel.Geometry getGeometry() {
 		return geometry;
 	}
 
-	public void setGeometry(Geometry geometry) {
+	public void setGeometry(ResponseModel.Geometry geometry) {
 		this.geometry = geometry;
 	}
 
@@ -64,11 +64,11 @@ public class NearbyPlacesResult {
 		this.permanentlyClosed = permanentlyClosed;
 	}
 
-	public List<Photo> getPhotos() {
+	public List<ResponseModel.Photo> getPhotos() {
 		return photos;
 	}
 
-	public void setPhotos(List<Photo> photos) {
+	public void setPhotos(List<ResponseModel.Photo> photos) {
 		this.photos = photos;
 	}
 
@@ -80,11 +80,11 @@ public class NearbyPlacesResult {
 		this.placeId = placeId;
 	}
 
-	public PlusCode getPlusCode() {
+	public ResponseModel.PlusCode getPlusCode() {
 		return plusCode;
 	}
 
-	public void setPlusCode(PlusCode plusCode) {
+	public void setPlusCode(ResponseModel.PlusCode plusCode) {
 		this.plusCode = plusCode;
 	}
 
@@ -136,11 +136,11 @@ public class NearbyPlacesResult {
 		this.vicinity = vicinity;
 	}
 
-	public OpeningHours getOpeningHours() {
+	public ResponseModel.OpeningHours getOpeningHours() {
 		return openingHours;
 	}
 
-	public void setOpeningHours(OpeningHours openingHours) {
+	public void setOpeningHours(ResponseModel.OpeningHours openingHours) {
 		this.openingHours = openingHours;
 	}
 
