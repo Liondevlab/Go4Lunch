@@ -77,13 +77,50 @@
                     tools:text="French - 12 rue du Faubourg Poissonnière" />
 
                 <ImageView
-                    android:id="@+id/rating_image"
+                    android:id="@+id/rating_star_1"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    tools:src="@drawable/ic_baseline_like_star_on_24"
                     app:layout_constraintBottom_toBottomOf="@id/restaurant_name"
                     app:layout_constraintStart_toEndOf="@id/restaurant_name"
                     app:layout_constraintTop_toTopOf="@id/restaurant_name"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="6dp"
+                    android:contentDescription="@string/rating_star" />
+                <ImageView
+                    android:id="@+id/rating_star_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    tools:src="@drawable/ic_baseline_like_star_on_24"
+                    app:layout_constraintBottom_toBottomOf="@id/restaurant_name"
+                    app:layout_constraintStart_toEndOf="@id/rating_star_1"
+                    app:layout_constraintTop_toTopOf="@id/restaurant_name"
+                    android:contentDescription="@string/rating_star" />
+                <ImageView
+                    android:id="@+id/rating_star_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    tools:src="@drawable/ic_baseline_like_star_on_24"
+                    app:layout_constraintBottom_toBottomOf="@id/restaurant_name"
+                    app:layout_constraintStart_toEndOf="@id/rating_star_2"
+                    app:layout_constraintTop_toTopOf="@id/restaurant_name"
+                    android:contentDescription="@string/rating_star" />
+                <ImageView
+                    android:id="@+id/rating_star_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    tools:src="@drawable/ic_baseline_like_star_on_24"
+                    app:layout_constraintBottom_toBottomOf="@id/restaurant_name"
+                    app:layout_constraintStart_toEndOf="@id/rating_star_3"
+                    app:layout_constraintTop_toTopOf="@id/restaurant_name"
+                    android:contentDescription="@string/rating_star" />
+                <ImageView
+                    android:id="@+id/rating_star_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    tools:src="@drawable/ic_baseline_like_star_on_24"
+                    app:layout_constraintBottom_toBottomOf="@id/restaurant_name"
+                    app:layout_constraintStart_toEndOf="@id/rating_star_4"
+                    app:layout_constraintTop_toTopOf="@id/restaurant_name"
                     android:contentDescription="@string/rating_star" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -141,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/fui_transparent"
-                tools:src="@drawable/ic_baseline_like_star_24"
+                tools:src="@drawable/ic_baseline_like_star_on_24"
                 android:layout_gravity="center"
                 android:paddingBottom="10dp"
                 android:contentDescription="@string/like_button" />
