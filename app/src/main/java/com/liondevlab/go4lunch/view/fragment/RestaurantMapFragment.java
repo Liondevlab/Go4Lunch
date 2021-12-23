@@ -8,6 +8,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -42,10 +43,10 @@ import com.liondevlab.go4lunch.R;
 import com.liondevlab.go4lunch.databinding.FragmentRestaurantMapBinding;
 import com.liondevlab.go4lunch.model.Restaurant;
 import com.liondevlab.go4lunch.model.places.ResponseModel;
+import com.liondevlab.go4lunch.view.activity.RestaurantDetailsActivity;
 import com.liondevlab.go4lunch.viewmodel.RestaurantMapViewModel;
 
 import java.util.List;
-import java.util.Objects;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -59,7 +60,6 @@ import permissions.dispatcher.RuntimePermissions;
 public class RestaurantMapFragment extends Fragment implements OnMapReadyCallback{
 
 	private GoogleMap mGoogleMap;
-	private SupportMapFragment mSupportMapFragment;
 	private FusedLocationProviderClient mFusedLocationProviderClient;
     private LatLng mLatLng;
 	private RestaurantMapViewModel mRestaurantMapViewModel;
@@ -77,9 +77,9 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 
 
 	private void initGoogleMap() {
-		mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-		assert mSupportMapFragment != null;
-		mSupportMapFragment.getMapAsync(this);
+		SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+		assert supportMapFragment != null;
+		supportMapFragment.getMapAsync(this);
 		// Initialize Fused Location
 		mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.requireContext());
 	}
@@ -90,7 +90,6 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		mGoogleMap.setMyLocationEnabled(true);
 		//Initialize Task Location
 		@SuppressLint("MissingPermission") Task<Location> task = mFusedLocationProviderClient.getLastLocation();
-		mGoogleMap.setOnInfoWindowClickListener(marker -> viewRestaurantDetail((Restaurant) marker.getTag()));
 		task.addOnSuccessListener(new OnSuccessListener<Location>() {
 			@Override
 			public void onSuccess(Location location) {
@@ -157,11 +156,6 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
 	}
 
-	private void viewRestaurantDetail(Restaurant tag) {
-		//TODO
-
-	}
-
 	private void getRestaurants() {
 		mRestaurantMapViewModel.getRestaurantsList().observe(getViewLifecycleOwner(), this::setMarkers);
 	}
@@ -180,6 +174,15 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 						.title(restaurant.getRestaurantName()));
 			}
 		}
+		mGoogleMap.setOnInfoWindowClickListener(marker -> {
+			for (Restaurant restaurant : restaurantList) {
+				if (restaurant.getRestaurantName().equals(marker.getTitle())) {
+					Intent intent = new Intent(this.getContext(), RestaurantDetailsActivity.class);
+					intent.putExtra(RestaurantDetailsActivity.EXTRA_RESTAURANT, restaurant.getRestaurantId());
+					this.requireContext().startActivity(intent);
+				}
+			}
+		});
 
 	}
 

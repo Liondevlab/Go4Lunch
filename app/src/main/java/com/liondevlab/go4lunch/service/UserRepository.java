@@ -1,14 +1,11 @@
 package com.liondevlab.go4lunch.service;
 
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.firebase.ui.auth.AuthUI;
@@ -20,11 +17,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.liondevlab.go4lunch.model.Message;
 import com.liondevlab.go4lunch.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Go4Lunch
@@ -46,7 +43,7 @@ public final class UserRepository {
 		if (mUserRepository == null) {
 			mUserRepository = new UserRepository();
 		}
-			return mUserRepository;
+			return result;
 	}
 
 	public UserRepository() {
@@ -54,14 +51,25 @@ public final class UserRepository {
 	}
 
 	@Nullable
-	public FirebaseUser getCurrentUser() {
+	public FirebaseUser getFirebaseCurrentUser() {
 		return FirebaseAuth.getInstance().getCurrentUser();
 	}
 
 	@Nullable
 	public String getCurrentUserUID() {
-		FirebaseUser user = getCurrentUser();
+		FirebaseUser user = getFirebaseCurrentUser();
 		return (user != null)? user.getUid() : null;
+	}
+
+	public LiveData<User> getCurrentUser() {
+		MutableLiveData<User> data = new MutableLiveData<>();
+		getUsersCollection().document(Objects.requireNonNull(getCurrentUserUID())).get().addOnCompleteListener(task -> {
+			if (task.isSuccessful()) {
+				User user = task.getResult().toObject(User.class);
+				data.setValue(user);
+			}
+		});
+		return data;
 	}
 
 	// Get the Collection Reference
@@ -71,7 +79,7 @@ public final class UserRepository {
 
 	// Create User in Firestore
 	public void createUser() {
-		FirebaseUser user = getCurrentUser();
+		FirebaseUser user = getFirebaseCurrentUser();
 		if(user != null) {
 			String urlPicture = (user.getPhotoUrl() != null) ? user.getPhotoUrl().toString() : null;
 			String username = user.getDisplayName();

@@ -63,5 +63,15 @@
     <string name="user_location">You are here!</string>
     <string name="url_googleapis" translatable="false">https://maps.googleapis.com/maps/api/place/</string>
     <string name="url_places_photos" translatable="false"><![CDATA[photo?maxwidth=400&photoreference=]]></string>
+    <string name="main_restaurant_picture">main_restaurant_picture</string>
+    <string name="choice_floating_button">Choice floating button</string>
+    <string name="details_back_arrow">details back arrow</string>
+    <string name="rating_star">rating star</string>
+    <string name="like_button">Like button</string>
+    <string name="call_button">call button</string>
+    <string name="website_button">website button</string>
+    <string name="restaurant_profile_web_button">WEBSITE</string>
+    <string name="restaurant_profile_call_button">CALL</string>
+    <string name="restaurant_profile_like_button">LIKE</string>
 
 </resources>

@@ -77,7 +77,7 @@ public class RestaurantRepository {
 				User workmate = documentSnapshot.toObject(User.class);
 				workmatesList.add(workmate);
 			}
-			mFirebaseHelper.restaurantReference.get().addOnCompleteListener(taskRestaurant -> {
+			mFirebaseHelper.getAllRestaurants().addOnCompleteListener(taskRestaurant -> {
 				for (QueryDocumentSnapshot documentSnapshot : taskRestaurant.getResult()) {
 					Restaurant restaurant = documentSnapshot.toObject(Restaurant.class);
 				}

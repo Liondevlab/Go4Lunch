@@ -43,4 +43,7 @@
     <string name="permission_location_denied">Permission location denied</string>
     <string name="permission_location_neverask">Permission for location will never be asked again</string>
     <string name="user_location">You are here!</string>
+    <string name="restaurant_profile_web_button">WEBSITE</string>
+    <string name="restaurant_profile_call_button">CALL</string>
+    <string name="restaurant_profile_like_button">LIKE</string>
 </resources>

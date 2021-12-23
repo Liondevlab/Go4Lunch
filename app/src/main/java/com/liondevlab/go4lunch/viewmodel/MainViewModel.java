@@ -19,7 +19,7 @@ public class MainViewModel extends ViewModel {
 	private final UserRepository mUserRepository = new UserRepository();
 
 	public FirebaseUser getCurrentUser() {
-		return mUserRepository.getCurrentUser();
+		return mUserRepository.getFirebaseCurrentUser();
 	}
 
 	public Task<Void> signOut(Context context) {
