@@ -112,11 +112,6 @@ public class RestaurantRepository {
 						String nextPage = Objects.requireNonNull(response.body()).getNextPageToken();
 						placesResultList.addAll(response.body().getResults());
 						if (nextPage != null) {
-							try {
-								Thread.sleep(2500);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
 							mRetrofitApi.getNextPageToken(nextPage, String.valueOf(R.string.google_places_maps_api_key)).enqueue(new Callback<NearbyPlaces>() {
 								@Override
 								public void onResponse(@NonNull Call<NearbyPlaces> call, @NonNull Response<NearbyPlaces> response) {

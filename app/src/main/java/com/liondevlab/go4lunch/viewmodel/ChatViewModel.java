@@ -40,9 +40,4 @@ public class ChatViewModel extends ViewModel {
 		mChatRepository.createMessageForChat(message);
 	}
 
-	public void initViewModel() {
-		//TODO
-	}
-
-	// TODO: Implement the ViewModel
 }

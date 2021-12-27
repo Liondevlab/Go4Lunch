@@ -15,7 +15,6 @@ import com.liondevlab.go4lunch.service.UserRepository;
  */
 public class MainViewModel extends ViewModel {
 
-	private final MutableLiveData<Boolean> mUserConnectedLiveData = new MutableLiveData<>();
 	private final UserRepository mUserRepository = new UserRepository();
 
 	public FirebaseUser getCurrentUser() {

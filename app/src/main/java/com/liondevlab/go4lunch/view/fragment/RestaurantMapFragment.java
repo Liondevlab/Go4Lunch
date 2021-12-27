@@ -71,12 +71,16 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
 		FragmentRestaurantMapBinding fragmentRestaurantMapBinding = FragmentRestaurantMapBinding.inflate(inflater, container, false);
 		mRestaurantMapViewModel = new ViewModelProvider(requireActivity()).get(RestaurantMapViewModel.class);
-		initGoogleMap();
 		return fragmentRestaurantMapBinding.getRoot();
 	}
 
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		initGoogleMap();
+	}
 
-	private void initGoogleMap() {
+	public void initGoogleMap() {
 		SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 		assert supportMapFragment != null;
 		supportMapFragment.getMapAsync(this);
@@ -135,23 +139,9 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
 		mGoogleMap = googleMap;
 		RestaurantMapFragmentPermissionsDispatcher.getCurrentLocationWithPermissionCheck(this);
 		updateMapUI();
-		getCurrentLocation();
 	}
 
 	private void updateMapUI() {
-/*		try {
-			// Customise the styling of the base map using a JSON object defined
-			// in a raw resource file.
-			boolean success = mGoogleMap.setMapStyle(
-					MapStyleOptions.loadRawResourceStyle(
-							this.requireContext(), R.raw.map_style));
-
-			if (!success) {
-				Log.e("MapsActivityRaw", "Style parsing failed.");
-			}
-		} catch (Resources.NotFoundException e) {
-			Log.e("MapsActivityRaw", "Can't find style.", e);
-		}*/
 		mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
 		mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
 	}

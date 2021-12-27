@@ -12,21 +12,13 @@ import java.util.List;
 public class RestaurantMapViewModel extends ViewModel {
 
 	private final RestaurantRepository mRestaurantRepository;
-	private final UserRepository mUserRepository;
 
 	public RestaurantMapViewModel() {
 		mRestaurantRepository = RestaurantRepository.getInstance();
-		mUserRepository = UserRepository.getInstance();
-	}
-
-	public LiveData<Restaurant> getRestaurant(String restaurantId) {
-		return mRestaurantRepository.getRestaurant(restaurantId);
 	}
 
 	public LiveData<List<Restaurant>> getRestaurantsList(){
 		return mRestaurantRepository.getRestaurantsList();
 	}
-
-	// TODO: Implement the ViewModel
 
 }

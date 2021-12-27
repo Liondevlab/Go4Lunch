@@ -39,11 +39,10 @@ public final class UserRepository {
 	private final FirebaseHelper mFirebaseHelper;
 
 	public static UserRepository getInstance() {
-		UserRepository result = mUserRepository;
 		if (mUserRepository == null) {
 			mUserRepository = new UserRepository();
 		}
-			return result;
+			return mUserRepository;
 	}
 
 	public UserRepository() {

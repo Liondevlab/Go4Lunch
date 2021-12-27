@@ -64,7 +64,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
 		mRating4 = findViewById(R.id.rating_star_4);
 		mRating5 = findViewById(R.id.rating_star_5);
 		mRestaurantName = findViewById(R.id.restaurant_name);
-		mAddress = findViewById(R.id.restaurant_type_and_location);
+		mAddress = findViewById(R.id.restaurant_location);
 		mChoiceButton = findViewById(R.id.choice_button);
 		mLikeButton = findViewById(R.id.like_button);
 		mCallButton = findViewById(R.id.call_button_picture);
