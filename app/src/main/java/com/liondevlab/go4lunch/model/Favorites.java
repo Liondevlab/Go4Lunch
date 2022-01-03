@@ -4,12 +4,12 @@ package com.liondevlab.go4lunch.model;
  * Go4Lunch
  * Created by LioNDeVLaB on 12/10/2021
  */
-public class Favorite {
+public class Favorites {
 
 	private String userId;
 	private String restaurantId;
 
-	public Favorite(String userId, String restaurantId) {
+	public Favorites(String userId, String restaurantId) {
 
 		this.userId = userId;
 		this.restaurantId = restaurantId;

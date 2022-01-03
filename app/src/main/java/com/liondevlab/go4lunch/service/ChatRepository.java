@@ -59,7 +59,6 @@ public class ChatRepository {
 
 	public MutableLiveData<List<Message>> getAllMessageForChat(){
 		// TODO Sort by date and limit number of message to 50 in RecyclerView
-		//TODO use addSnapshotListener() instead of get() see Firestore to listen to update in real time
 		mFirebaseHelper.getMessagesQuery().addSnapshotListener(new EventListener<QuerySnapshot>() {
 			@Override
 			public void onEvent(@Nullable QuerySnapshot value,

@@ -27,6 +27,8 @@ public class FirebaseHelper {
 	private static final String MESSAGE_COLLECTION = "messages";
 	private static final String USER_COLLECTION = "users";
 	private static final String RESTAURANT_COLLECTION = "restaurants";
+	private static final String CHOSEN_RESTAURANT_COLLECTION = "chosenRestaurants";
+	private static final String FAVORITES_COLLECTION = "favorites";
 
 	public static FirebaseHelper getInstance() {
 		if (sFirebaseHelper == null) {
@@ -38,6 +40,8 @@ public class FirebaseHelper {
 	public final CollectionReference messageReference = db.collection(MESSAGE_COLLECTION);
 	public final CollectionReference userReference = db.collection(USER_COLLECTION);
 	public final CollectionReference restaurantReference = db.collection(RESTAURANT_COLLECTION);
+	public final CollectionReference chosenRestaurantReference = db.collection(CHOSEN_RESTAURANT_COLLECTION);
+	public final CollectionReference favoritesReference = db.collection(FAVORITES_COLLECTION);
 
 	public Query getMessagesQuery() {
 		return messageReference.orderBy("dateCreated");
